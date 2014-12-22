@@ -16,5 +16,6 @@ module Ena
       Rails.root.join('lib/autoload'),
     ]
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.css)
+    config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   end
 end
