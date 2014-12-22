@@ -15,6 +15,7 @@ Bundler.require(*Rails.groups)
 
 module Ena
   class Application < Rails::Application
+    config.generators.template_engine = :haml
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
