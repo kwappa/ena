@@ -5,9 +5,9 @@ RSpec.describe User, type: :model do
 
   describe 'validations' do
     subject(:user) { build(:user, attr) }
+    let(:attr) { {} }
 
     describe 'name' do
-      let(:attr) { {} }
       context 'when default' do
         it { expect(user).to be_valid }
       end
@@ -65,6 +65,36 @@ RSpec.describe User, type: :model do
       context 'when reserved' do
         context 'with defualt reserved username' do
           let(:attr) { { name: 'index' } }
+          it { expect(user).to_not be_valid }
+        end
+      end
+    end
+
+    describe 'email' do
+      context 'when blank' do
+        let(:attr) { { email: '' } }
+        it { expect(user).to_not be_valid }
+      end
+
+      context 'when invalid format' do
+        let(:attr) { { email: 'INVALID_EMAIL_FORMAT' } }
+        it { expect(user).to_not be_valid }
+      end
+
+      context 'when duplicated' do
+        before { create(:user, name: 'other_dummy_user') }
+
+        context 'with same case' do
+          it { expect(user).to_not be_valid }
+        end
+
+        context 'with another case' do
+          let(:attr) do
+            {
+              name: 'yet_another_dummy_user',
+              email: 'default_user@example.com'.upcase
+            }
+          end
           it { expect(user).to_not be_valid }
         end
       end
