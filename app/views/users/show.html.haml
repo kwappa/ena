@@ -1,0 +1,24 @@
+= content_for :header do
+  meta name='viewport' content='width=device-width, initial-scale=1.0'
+
+#layout.pure-g
+  %div.sidebar.pure-u-1.pure-u-md-1-4
+    %div.header
+      %div
+        = image_tag "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(@user.email)}", class: 'gravater_icon'
+      %h1.brand-title= @user.name
+      %h2.brand-tagline= @user.screen_name
+      %nav.nav
+        %ul.nav-list
+          %li.nav-item= @user.email
+  %div.content.pure-u-1.pure-u-md-3-4
+    %div
+      %div.posts
+        %h1.content-subhead
+          Your profile
+        %section.post
+          %header.post-header
+            %h2.post-title
+              Information
+            %p.post-meta
+          %div.post-description
