@@ -121,5 +121,37 @@ RSpec.describe User, type: :model do
         it { expect(user).to_not be_valid }
       end
     end
+
+    describe 'member_number' do
+      context 'when duplicated' do
+        let(:member_number) { nil }
+        before do
+          create(:user,
+                 name: 'duplicated_member_number_name',
+                 nick: 'duplicated_member_number_nick',
+                 email: 'duplicated_member_number@example.com',
+                 member_number: member_number
+                )
+        end
+
+        context 'with nil' do
+          let(:member_number) { nil }
+          let(:attr) { { member_number: member_number } }
+          it { expect(user).to be_valid }
+        end
+
+        context 'with blank' do
+          let(:member_number) { '' }
+          let(:attr) { { member_number: member_number } }
+          it { expect(user).to be_valid }
+        end
+
+        context 'with duplicated value' do
+          let(:member_number) { 'duplicated_member_number' }
+          let(:attr) { { member_number: member_number } }
+          it { expect(user).to_not be_valid }
+        end
+      end
+    end
   end
 end

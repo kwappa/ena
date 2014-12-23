@@ -12,4 +12,6 @@ class User < ActiveRecord::Base
 
   validates(:name, NAME_AND_NICK_VALIDATION_CONDITIONS)
   validates(:nick, NAME_AND_NICK_VALIDATION_CONDITIONS)
+
+  validates(:member_number, uniqueness: { allow_nil: true, allow_blank: true } )
 end
