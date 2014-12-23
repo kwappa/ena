@@ -63,6 +63,11 @@ GEM
     erubis (2.7.0)
     escape_utils (1.0.1)
     execjs (2.2.2)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     gemoji (2.1.0)
     github-linguist (4.2.5)
       charlock_holmes (~> 0.7.3)
@@ -238,6 +243,7 @@ DEPENDENCIES
   database_rewinder
   devise (~> 3.4.1)
   erb2haml
+  factory_girl_rails
   haml-rails (~> 0.6.0)
   jquery-rails (~> 4.0.2)
   omniauth (~> 1.2.2)
