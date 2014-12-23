@@ -99,5 +99,27 @@ RSpec.describe User, type: :model do
         end
       end
     end
+
+    describe 'nick' do
+      context 'when blank' do
+        let(:attr) { { nick: '' } }
+        it { expect(user).to_not be_valid }
+      end
+
+      context 'when includes invalid character' do
+        let(:attr) { { nick: 'my@nickname' } }
+        it { expect(user).to_not be_valid }
+      end
+
+      context 'when includes non-ASCII' do
+        let(:attr) { { nick: 'user_ニック_name' } }
+        it { expect(user).to_not be_valid }
+      end
+
+      context 'when duplicated' do
+        before { create(:user, name: 'nick_duplicated_user', email: 'nick_dup@example.com') }
+        it { expect(user).to_not be_valid }
+      end
+    end
   end
 end
