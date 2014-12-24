@@ -10,4 +10,8 @@ class UsersController < ApplicationController
     end
     raise ActiveRecord::RecordNotFound unless @user
   end
+
+  def after_edit
+    redirect_to user_profile_path(current_user.nick)
+  end
 end
