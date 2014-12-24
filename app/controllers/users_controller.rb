@@ -12,6 +12,6 @@ class UsersController < ApplicationController
   end
 
   def after_edit
-    redirect_to user_profile_path(current_user.nick)
+    redirect_to home_path(current_user.nick)
   end
 end

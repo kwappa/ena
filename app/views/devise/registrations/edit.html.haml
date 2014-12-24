@@ -12,7 +12,7 @@
             %h2
               Edit Profile
               - if myself?(@user)
-                = link_to('[ Back ]',  user_profile_path(@user.nick), class: 'edit_link')
+                = link_to('[ Back ]', home_path(@user.nick), class: 'edit_link')
           %div.post-description
             = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
               %table.profile.edit_form
