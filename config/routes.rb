@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   devise_for :users
 
   scope ':nick' do
-    get '/', controller: :users, action: :show
+    get '/', controller: :users, action: :show, as: :user_profile
   end
 end
