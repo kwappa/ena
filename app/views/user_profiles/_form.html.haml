@@ -1,4 +1,4 @@
-= form_for @user_profile do |f|
+= form_for @user_profile, url: { controller: :user_profiles, action: form_action } do |f|
   - if @user_profile.errors.any?
     #error_explanation
       %h2= "#{pluralize(@user_profile.errors.count, "error")} prohibited this user_profile from being saved:"

@@ -1,7 +1,5 @@
 %h1 Editing user_profile
 
-= render 'form'
+= render 'form', form_action: :update
 
-= link_to 'Show', @user_profile
-\|
-= link_to 'Back', user_profiles_path
+= link_to 'Back', home_path(@user.nick)
