@@ -33,7 +33,7 @@ class UserProfilesController < ApplicationController
   private
 
   def set_user_and_profile
-    redirect_to(root_path) unless view_context.myself?(current_user)
+    redirect_to(root_path) and return unless view_context.myself?(current_user)
     @user = current_user
     @user_profile = current_user.profile
   end

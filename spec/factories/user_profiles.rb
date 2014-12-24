@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :user_profile do
-    user_id ""
-body "MyText"
+    user
+    body "User Profile Body"
   end
-
 end
