@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
     username_not_reserved: true
   }
 
+  has_one :profile, class_name: 'UserProfile'
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable
 
