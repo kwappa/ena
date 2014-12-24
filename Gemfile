@@ -18,12 +18,12 @@ gem 'omniauth',     '~> 1.2.2'
 group :development do
   gem 'rack-mini-profiler', require: false
   gem 'spring'
-  gem 'pry-rails'
   gem 'erb2haml'
 end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'pry-rails'
   gem 'factory_girl_rails'
 end
 
