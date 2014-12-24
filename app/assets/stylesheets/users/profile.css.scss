@@ -45,6 +45,11 @@ table.profile {
     th {
         text-align: right;
     }
+    &.edit_form {
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 320px;
+        }
+    }
 }
 
 .sidebar {
