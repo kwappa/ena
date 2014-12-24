@@ -1,3 +1,5 @@
+$content_left_margin: 25%;
+
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -34,6 +36,10 @@ h3 {
     ul.profile {
         list-style-type: none;
     }
+}
+
+.flash_message {
+    margin-left: $content_left_margin;
 }
 
 table.profile {
@@ -180,7 +186,7 @@ a.edit_link {
 @media (min-width: 48em) {
     .content {
         padding: 2em 3em 0;
-        margin-left: 25%;
+        margin-left: $content_left_margin;
     }
 
     .header {
