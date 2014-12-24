@@ -38,10 +38,14 @@
                 %td
                   = @user.member_number
 
-
       %div.posts
+        %h1.content-subhead
         %section.post
           %header.post-header
-            Resume
+            %h2
+              Resume
+              - if myself?(@user)
+                = link_to('[ Edit ]',  edit_users_profile_path, class: 'edit_link')
           %div.post-description
-            resume will be here.
+            %div.resume
+              = @user.profile.try(:body)
