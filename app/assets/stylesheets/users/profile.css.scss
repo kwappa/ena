@@ -1,4 +1,4 @@
-$content_left_margin: 25%;
+$sidebar_width: 25%;
 
 * {
     -webkit-box-sizing: border-box;
@@ -39,7 +39,7 @@ h3 {
 }
 
 .flash_message {
-    margin-left: $content_left_margin;
+    margin-left: $sidebar_width;
 }
 
 table.profile {
@@ -186,7 +186,7 @@ a.edit_link {
 @media (min-width: 48em) {
     .content {
         padding: 2em 3em 0;
-        margin-left: $content_left_margin;
+        margin-left: $sidebar_width;
     }
 
     .header {
@@ -198,6 +198,7 @@ a.edit_link {
         position: fixed;
         top: 0;
         bottom: 0;
+        width: $sidebar_width;
     }
 }
 

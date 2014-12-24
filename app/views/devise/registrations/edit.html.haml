@@ -1,7 +1,4 @@
-= content_for :header do
-  %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
-  = stylesheet_link_tag 'http://yui.yahooapis.com/pure//grids-responsive.css'
-  = stylesheet_link_tag 'users/profile'
+= render 'users/profile_header'
 
 #layout.pure-g
   = render 'users/profile_sidebar'
@@ -10,13 +7,13 @@
     %div
       %div.posts
         %h1.content-subhead
-          #{@user.name}'s Profile
         %section.post
-          %div.post-description
+          %header.post-header
             %h2
               Edit Profile
               - if myself?(@user)
                 = link_to('[ Back ]',  user_profile_path(@user.nick), class: 'edit_link')
+          %div.post-description
             = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
               %table.profile.edit_form
                 %tr
