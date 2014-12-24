@@ -1,16 +1,6 @@
 = form_for @user_profile, url: { controller: :user_profiles, action: form_action } do |f|
-  - if @user_profile.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@user_profile.errors.count, "error")} prohibited this user_profile from being saved:"
-      %ul
-        - @user_profile.errors.full_messages.each do |msg|
-          %li= msg
-
   .field
-    = f.label :user_id
-    = f.text_field :user_id
-  .field
-    = f.label :body
     = f.text_area :body
+    = f.hidden_field :user_id
   .actions
     = f.submit 'Save'

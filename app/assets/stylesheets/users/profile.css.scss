@@ -58,6 +58,17 @@ table.profile {
     }
 }
 
+.profile_form {
+    border: 1px dolid red;
+    textarea {
+        width: 100%;
+        height: 32em;
+    }
+    input[type=submit] {
+        margin-top: 16px;
+    }
+}
+
 a.edit_link {
     font-weight: normal;
     font-size: 0.7em;
