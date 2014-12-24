@@ -1,5 +1,7 @@
 = content_for :header do
-  meta name='viewport' content='width=device-width, initial-scale=1.0'
+  %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
+  = stylesheet_link_tag 'http://yui.yahooapis.com/pure//grids-responsive.css'
+  = stylesheet_link_tag 'users/show'
 
 #layout.pure-g
   %div.sidebar.pure-u-1.pure-u-md-1-4
@@ -9,16 +11,41 @@
       %h1.brand-title= @user.name
       %h2.brand-tagline= @user.screen_name
       %nav.nav
-        %ul.nav-list
-          %li.nav-item= @user.email
+        %ul.profile
+          %li= @user.nick
+          %li= @user.email
+
   %div.content.pure-u-1.pure-u-md-3-4
     %div
       %div.posts
         %h1.content-subhead
-          Your profile
+          #{@user.name}'s Profile
         %section.post
-          %header.post-header
-            %h2.post-title
-              Information
-            %p.post-meta
           %div.post-description
+            %h2
+              Profile
+            %table.profile
+              %tr
+                %th
+                  Name
+                %td
+                  #{@user.name} / #{@user.nick}
+              %tr
+                %th
+                  Screen Name
+                %td
+                  %ruby
+                    %rb= @user.screen_name
+                    %rt= @user.screen_name_kana
+              %tr
+                %th
+                  Email
+                %td
+                  = @user.email
+              %tr
+                %th
+                  Member Number
+                %td
+                  = @user.member_number
+            %h2
+              Resume
