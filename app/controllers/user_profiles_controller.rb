@@ -1,47 +1,44 @@
 class UserProfilesController < ApplicationController
-  before_action :set_user_profile, only: [:show, :edit, :update, :destroy]
+  before_action :set_user_and_profile
 
   respond_to :html
 
-  def index
-    @user_profiles = UserProfile.all
-    respond_with(@user_profiles)
-  end
-
-  def show
-    respond_with(@user_profile)
-  end
-
   def new
-    @user_profile = UserProfile.new
-    respond_with(@user_profile)
+    if @user_profile.present?
+      redirect_to edit_users_profile_path
+    else
+      @user_profile = UserProfile.new(user_id: @user.id)
+    end
   end
 
   def edit
+    unless @user_profile.present?
+      redirect_to new_users_profile_path
+    end
   end
 
   def create
-    @user_profile = UserProfile.new(user_profile_params)
+    @user_profile = UserProfile.new(user_id: @user.id, body: user_profile_params[:body])
     @user_profile.save
-    respond_with(@user_profile)
+    flash[:notice] = 'Resume created.'
+    redirect_to home_path(@user.nick)
   end
 
   def update
-    @user_profile.update(user_profile_params)
-    respond_with(@user_profile)
-  end
-
-  def destroy
-    @user_profile.destroy
-    respond_with(@user_profile)
+    @user_profile.update_attributes(body: user_profile_params[:body])
+    flash[:notice] = 'Resume updated.'
+    redirect_to home_path(@user.nick)
   end
 
   private
-    def set_user_profile
-      @user_profile = UserProfile.find(params[:id])
-    end
 
-    def user_profile_params
-      params.require(:user_profile).permit(:user_id, :body)
-    end
+  def set_user_and_profile
+    redirect_to(root_path) unless view_context.myself?(current_user)
+    @user = current_user
+    @user_profile = current_user.profile
+  end
+
+  def user_profile_params
+    params.require(:user_profile).permit(:user_id, :body)
+  end
 end
