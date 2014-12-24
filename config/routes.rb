@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :user_profiles
+
   root 'users#index'
 
   devise_for :users
