@@ -48,4 +48,5 @@
                 = link_to('[ Edit ]',  edit_users_profile_path, class: 'edit_link')
           %div.post-description
             %div.resume
-              = @user.profile.try(:body)
+              - if @user.profile.present?
+                = @user.profile.render(:body).html_safe
