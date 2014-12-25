@@ -11,7 +11,7 @@ gem 'sdoc'
 gem 'haml-rails',   '~> 0.6.0'
 gem 'bcrypt',       '~> 3.1.9'
 gem 'username_not_reserved_validator'
-gem 'qiita-markdown'
+# gem 'qiita-markdown'
 gem 'devise',       '~> 3.4.1'
 gem 'omniauth',     '~> 1.2.2'
 
