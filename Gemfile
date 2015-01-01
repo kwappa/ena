@@ -8,6 +8,7 @@ gem 'uglifier',     '~> 2.6.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails', '~> 4.0.2'
 gem 'sdoc'
+gem 'unicorn',      '~> 4.8.3'
 
 gem 'haml-rails',   '~> 0.6.0'
 gem 'bcrypt',       '~> 3.1.9'
