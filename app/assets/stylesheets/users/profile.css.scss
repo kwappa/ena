@@ -1,3 +1,5 @@
+@import 'application';
+
 $sidebar_width: 25%;
 
 * {
@@ -215,4 +217,14 @@ a.edit_link {
 
 .gravatar_icon {
     border-radius: 8px;
+}
+
+.code-frame pre {
+    @include border-radius(3px);
+    margin: 0;
+    padding: 8px 15px;
+    line-height: 18px;
+    background-color: #f7f7f7;
+    white-space: pre-wrap;
+    font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
 }
