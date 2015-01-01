@@ -13,4 +13,5 @@
  *= require_tree .
  *= require_self
  *= require 'normalize'
+ *= require 'pygments_default'
  */
