@@ -138,7 +138,7 @@ a.edit_link {
     margin-bottom: 0.2em;
 }
 .post-avatar {
-    border-radius: 50px;
+    @include border-radius(50px);
     float: right;
     margin-left: 1em;
 }
@@ -216,7 +216,7 @@ a.edit_link {
 }
 
 .gravatar_icon {
-    border-radius: 8px;
+    @include border-radius(8px);
 }
 
 .code-frame pre {
