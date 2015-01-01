@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 ruby '2.2.0'
 
 gem 'rails',        '4.2.0'
-gem 'sass-rails',   '~> 5.0.0'
+gem 'sprockets',    '~> 2.11.0'
+gem 'sass-rails',   '~> 4.0.0'
 gem 'uglifier',     '~> 2.6.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails', '~> 4.0.2'
@@ -14,6 +15,7 @@ gem 'username_not_reserved_validator'
 gem 'qiita-markdown'
 gem 'devise',       '~> 3.4.1'
 gem 'omniauth',     '~> 1.2.2'
+gem 'compass-rails'
 
 group :production do
   gem 'pg',             '~> 0.17.1'
