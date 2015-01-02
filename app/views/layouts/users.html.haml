@@ -1,0 +1,10 @@
+= render 'users/profile_header'
+= content_for :content do
+  #layout.pure-g
+    - if user_signed_in?
+      = render 'users/profile_sidebar'
+    - else
+      = render 'users/guest_sidebar'
+    = yield
+
+= render file: 'layouts/application'

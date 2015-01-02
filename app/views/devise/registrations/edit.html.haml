@@ -1,71 +1,66 @@
-= render 'users/profile_header'
-
-#layout.pure-g
-  = render 'users/profile_sidebar'
-
-  %div.content.pure-u-1.pure-u-md-3-4
-    %div
-      %div.posts
-        %h1.content-subhead
-        %section.post
-          %header.post-header
-            %h2
-              Edit Profile
-              - if myself?(@user)
-                = link_to('[ Back ]', home_path(@user.nick), class: 'edit_link')
-          %div.post-description
-            = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-              %table.profile.edit_form
-                %tr
-                  %th
-                    = f.label :name
-                  %td
-                    = f.text_field :name
-                %tr
-                  %th
-                    = f.label :nick
-                  %td
-                    = f.text_field :nick
-                %tr
-                  %th
-                    = f.label :screen_name_kana
-                  %td
-                    = f.text_field :screen_name_kana
-                %tr
-                  %th
-                    = f.label :screen_name
-                  %td
-                    = f.text_field :screen_name
-                %tr
-                  %th
-                    = f.label :email
-                  %td
-                    = f.email_field :email
-                %tr
-                  %th
-                    = f.label :member_number
-                  %td
-                    = f.text_field :member_number
-                %tr
-                  %th
-                    = f.label :password
-                  %td
-                    = f.password_field :password, autocomplete: 'off'
-                    %br
-                    %i (leave blank if you don't want to change it)
-                %tr
-                  %th
-                    = f.label :password_confirmation
-                  %td
-                    = f.password_field :password_confirmation, autocomplete: 'off'
-                %tr
-                  %th
-                    = f.label :current_password
-                  %td
-                    = f.password_field :current_password, autocomplete: 'off'
-                    %br
-                    %i (we need your current password to confirm your changes)
-                %tr
-                  %th
-                  %td
-                    = f.submit 'Update'
+%div.content.pure-u-1.pure-u-md-3-4
+  %div
+    %div.posts
+      %h1.content-subhead
+      %section.post
+        %header.post-header
+          %h2
+            Edit Profile
+            - if myself?(@user)
+              = link_to('[ Back ]', home_path(@user.nick), class: 'edit_link')
+        %div.post-description
+          = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+            %table.profile.edit_form
+              %tr
+                %th
+                  = f.label :name
+                %td
+                  = f.text_field :name
+              %tr
+                %th
+                  = f.label :nick
+                %td
+                  = f.text_field :nick
+              %tr
+                %th
+                  = f.label :screen_name_kana
+                %td
+                  = f.text_field :screen_name_kana
+              %tr
+                %th
+                  = f.label :screen_name
+                %td
+                  = f.text_field :screen_name
+              %tr
+                %th
+                  = f.label :email
+                %td
+                  = f.email_field :email
+              %tr
+                %th
+                  = f.label :member_number
+                %td
+                  = f.text_field :member_number
+              %tr
+                %th
+                  = f.label :password
+                %td
+                  = f.password_field :password, autocomplete: 'off'
+                  %br
+                  %i (leave blank if you don't want to change it)
+              %tr
+                %th
+                  = f.label :password_confirmation
+                %td
+                  = f.password_field :password_confirmation, autocomplete: 'off'
+              %tr
+                %th
+                  = f.label :current_password
+                %td
+                  = f.password_field :current_password, autocomplete: 'off'
+                  %br
+                  %i (we need your current password to confirm your changes)
+              %tr
+                %th
+                %td
+                  = f.submit 'Update'

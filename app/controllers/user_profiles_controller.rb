@@ -2,6 +2,7 @@ class UserProfilesController < ApplicationController
   before_action :set_user_and_profile
 
   respond_to :html
+  layout 'users'
 
   def new
     if @user_profile.present?

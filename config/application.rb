@@ -25,5 +25,11 @@ module Ena
       g.helper          = false
       g.view_specs      = false
     end
+
+    # specify layout for devise
+    config.to_prepare do
+      Devise::SessionsController.layout 'users'
+      Devise::RegistrationsController.layout 'users'
+    end
   end
 end

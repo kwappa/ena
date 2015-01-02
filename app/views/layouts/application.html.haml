@@ -5,4 +5,4 @@
     = csrf_meta_tags
     = yield :header
   %body
-    = yield
+    = content_for?(:content) ? yield(:content) : yield

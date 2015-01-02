@@ -1,57 +1,52 @@
-= render 'users/profile_header'
-
-#layout.pure-g
-  = render 'profile_sidebar'
-
-  %div.content.pure-u-1.pure-u-md-3-4
-    %div
-      %div.posts
-        %h1.content-subhead
-        %section.post
-          %header.post-header
-            %h2
-              Profile
-              - if myself?(@user)
-                = link_to('[ Edit ]',  edit_user_registration_path, class: 'edit_link')
-          %div.post-description
-            %table.profile
-              %tr
-                %th
-                  Name
-                %td
-                  #{@user.name} / #{@user.nick}
-              %tr
-                %th
-                  Screen Name
-                %td
-                  %ruby
-                    %rb= @user.screen_name
-                    %rt= @user.screen_name_kana
-              %tr
-                %th
-                  Email
-                %td
-                  = @user.email
-              %tr
-                %th
-                  Member Number
-                %td
-                  = @user.member_number
-      %div.posts
-        %h1.content-subhead
-        %section.post
-          %header.post-header
-            %h2
-              Resume
-              - if myself?(@user)
-                = link_to('[ Edit ]',  edit_users_profile_path, class: 'edit_link')
-          %div.post-description
-            %div.resume
-              - if @user.profile.present?
-                = @user.profile.render(:body).html_safe
-      %div.posts
-        %h1.content-subhead
-        %section.post
-          %div.post-description
-            = form_tag(destroy_user_session_path, method: :delete) do
-              = submit_tag 'Logout'
+%div.content.pure-u-1.pure-u-md-3-4
+  %div
+    %div.posts
+      %h1.content-subhead
+      %section.post
+        %header.post-header
+          %h2
+            Profile
+            - if myself?(@user)
+              = link_to('[ Edit ]',  edit_user_registration_path, class: 'edit_link')
+        %div.post-description
+          %table.profile
+            %tr
+              %th
+                Name
+              %td
+                #{@user.name} / #{@user.nick}
+            %tr
+              %th
+                Screen Name
+              %td
+                %ruby
+                  %rb= @user.screen_name
+                  %rt= @user.screen_name_kana
+            %tr
+              %th
+                Email
+              %td
+                = @user.email
+            %tr
+              %th
+                Member Number
+              %td
+                = @user.member_number
+    %div.posts
+      %h1.content-subhead
+      %section.post
+        %header.post-header
+          %h2
+            Resume
+            - if myself?(@user)
+              = link_to('[ Edit ]',  edit_users_profile_path, class: 'edit_link')
+        %div.post-description
+          %div.resume
+            - if @user.profile.present?
+              = @user.profile.render(:body).html_safe
+    %div.posts
+      %h1.content-subhead
+      %section.post
+        %div.post-description
+          = form_tag(destroy_user_session_path, method: :delete) do
+            = submit_tag 'Logout'
