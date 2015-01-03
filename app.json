@@ -1,6 +1,6 @@
 {
-    'name': 'ena',
-    'env': {
-        'BUILDPACK_URL': 'https://github.com/heroku/heroku-buildpack-multi.git'
+    "name": "ena",
+    "env": {
+        "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-multi.git"
     }
 }
