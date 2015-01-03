@@ -64,3 +64,5 @@ specify build pack url via Heroku Toolbelt
 ```
 % heroku config:set BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-multi.git
 ```
+
+custom buildpacks to install `libicu-dev` and `cmake` are specified in `.buildpacks`.
