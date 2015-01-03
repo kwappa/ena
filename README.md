@@ -1,6 +1,7 @@
 # ena
 
 [![Build Status](https://travis-ci.org/kwappa/ena.svg)](https://travis-ci.org/kwappa/ena)
+[![Coverage Status](https://coveralls.io/repos/kwappa/ena/badge.png?branch=master)](https://coveralls.io/r/kwappa/ena?branch=master)
 
 ena : engineer's name archive
 
