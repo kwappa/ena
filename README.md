@@ -1,5 +1,7 @@
 # ena
 
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 [![Build Status](https://travis-ci.org/kwappa/ena.svg)](https://travis-ci.org/kwappa/ena)
 [![Coverage Status](https://coveralls.io/repos/kwappa/ena/badge.png?branch=master)](https://coveralls.io/r/kwappa/ena?branch=master)
 [![Code Climate](https://codeclimate.com/github/kwappa/ena/badges/gpa.svg)](https://codeclimate.com/github/kwappa/ena)
