@@ -2,7 +2,11 @@ language: ruby
 rvm:
   - 2.2.0
 before_install:
-  - sudo apt-get update && sudo apt-get install libicu-dev cmake postgresql-9.4
+  - sudo /etc/init.d/postgresql stop
+  - sudo apt-get update
+  - sudo apt-get purge postgresql-9.1 postgresql-9.2 postgresql-9.3
+  - sudo apt-get install libicu-dev cmake language-pack-es postgresql-9.4
+  - sudo /etc/init.d/postgresql start
 env:
   - DB=sqlite
   - DB=postgresql
