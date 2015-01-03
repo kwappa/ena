@@ -1,5 +1,10 @@
 # ena
 
+[![Build Status](https://travis-ci.org/kwappa/ena.svg)](https://travis-ci.org/kwappa/ena)
+[![Coverage Status](https://coveralls.io/repos/kwappa/ena/badge.png?branch=master)](https://coveralls.io/r/kwappa/ena?branch=master)
+[![Code Climate](https://codeclimate.com/github/kwappa/ena/badges/gpa.svg)](https://codeclimate.com/github/kwappa/ena)
+[![Dependency Status](https://gemnasium.com/kwappa/ena.svg)](https://gemnasium.com/kwappa/ena)
+
 ena : engineer's name archive
 
 ## How to install
@@ -64,3 +69,5 @@ specify build pack url via Heroku Toolbelt
 ```
 % heroku config:set BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-multi.git
 ```
+
+custom buildpacks to install `libicu-dev` and `cmake` are specified in `.buildpacks`.
