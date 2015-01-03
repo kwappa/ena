@@ -1,5 +1,7 @@
 # ena
 
+[![Build Status](https://travis-ci.org/kwappa/ena.svg)](https://travis-ci.org/kwappa/ena)
+
 ena : engineer's name archive
 
 ## How to install
