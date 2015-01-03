@@ -4,9 +4,8 @@ sqlite: &sqlite
 
 postgresql: &postgresql
   adapter: postgresql
-  #host: localhost
-  #username: postgres
-  #password:
+  username: postgres
+  password:
   database: ena_<%= Rails.env %>
   min_messages: ERROR
 
