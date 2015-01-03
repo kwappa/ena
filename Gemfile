@@ -19,12 +19,10 @@ gem 'omniauth',     '~> 1.2.2'
 gem 'compass-rails'
 
 group :production do
-  gem 'pg',             '~> 0.17.1'
   gem 'rails_12factor', '~> 0.0.3'
 end
 
 group :development do
-  gem 'sqlite3',      '~> 1.3.10'
   gem 'rack-mini-profiler', require: false
   gem 'spring'
   gem 'erb2haml'
@@ -34,6 +32,11 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'pry-rails'
   gem 'factory_girl_rails'
+  gem 'sqlite3', '~> 1.3.10'
+end
+
+group :production, :test do
+  gem 'pg', '~> 0.17.1'
 end
 
 group :test do
