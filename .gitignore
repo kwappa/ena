@@ -10,3 +10,4 @@ vendor/bundle
 config/database.yml
 
 .ruby-version
+coverage/
