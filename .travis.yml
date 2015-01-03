@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 2.2.0
 before_install:
-  - sudo apt-get update && sudo apt-get install libicu-dev cmake
+  - sudo apt-get update && sudo apt-get install libicu-dev cmake postgresql-9.4
 env:
   - DB=sqlite
   - DB=postgresql
