@@ -5,7 +5,7 @@ RSpec.describe User, type: :model do
 
   describe 'validations' do
     subject(:user) { build(:user, attr) }
-    let(:attr) { {} }
+    let(:attr) { { } }
 
     describe 'name' do
       context 'when default' do
@@ -82,25 +82,24 @@ RSpec.describe User, type: :model do
       end
 
       context 'when duplicated' do
-        before { create(:user, name: 'other_dummy_user') }
+        let(:duplicated_email) { 'duplicated_email@example.com' }
+        before { create(:user, email: duplicated_email) }
 
         context 'with same case' do
+          let(:attr) { { email: duplicated_email } }
           it { expect(user).to_not be_valid }
         end
 
         context 'with another case' do
-          let(:attr) do
-            {
-              name: 'yet_another_dummy_user',
-              email: 'default_user@example.com'.upcase
-            }
-          end
+          let(:attr) { { email: duplicated_email.upcase } }
           it { expect(user).to_not be_valid }
         end
       end
     end
 
     describe 'nick' do
+      let(:duplicated_nick) { 'duplicated_nick' }
+
       context 'when blank' do
         let(:attr) { { nick: '' } }
         it { expect(user).to_not be_valid }
@@ -117,7 +116,7 @@ RSpec.describe User, type: :model do
       end
 
       context 'when duplicated' do
-        before { create(:user, name: 'nick_duplicated_user', email: 'nick_dup@example.com') }
+        before { create(:user, nick: duplicated_nick) }
         it { expect(user).to_not be_valid }
       end
     end
