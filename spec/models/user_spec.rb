@@ -5,7 +5,7 @@ RSpec.describe User, type: :model do
 
   describe 'validations' do
     subject(:user) { build(:user, attr) }
-    let(:attr) { {} }
+    let(:attr) { { } }
 
     describe 'name' do
       context 'when default' do
@@ -35,19 +35,15 @@ RSpec.describe User, type: :model do
       end
 
       context 'when duplicated' do
-        before { create(:user) }
+        let!(:existing_user) { create(:user) }
 
         context 'with same case' do
+          let(:attr) { { name: existing_user.name } }
           it { expect(user).to_not be_valid }
         end
 
         context 'with another case' do
-          let(:attr) do
-            {
-              name: User.first.name.upcase,
-              email: 'other_dummy_user@example.com',
-            }
-          end
+          let(:attr) { { name: existing_user.name.upcase } }
           it { expect(user).to_not be_valid }
         end
       end
@@ -82,25 +78,24 @@ RSpec.describe User, type: :model do
       end
 
       context 'when duplicated' do
-        before { create(:user, name: 'other_dummy_user') }
+        let(:duplicated_email) { 'duplicated_email@example.com' }
+        before { create(:user, email: duplicated_email) }
 
         context 'with same case' do
+          let(:attr) { { email: duplicated_email } }
           it { expect(user).to_not be_valid }
         end
 
         context 'with another case' do
-          let(:attr) do
-            {
-              name: 'yet_another_dummy_user',
-              email: 'default_user@example.com'.upcase
-            }
-          end
+          let(:attr) { { email: duplicated_email.upcase } }
           it { expect(user).to_not be_valid }
         end
       end
     end
 
     describe 'nick' do
+      let(:duplicated_nick) { 'duplicated_nick' }
+
       context 'when blank' do
         let(:attr) { { nick: '' } }
         it { expect(user).to_not be_valid }
@@ -117,7 +112,8 @@ RSpec.describe User, type: :model do
       end
 
       context 'when duplicated' do
-        before { create(:user, name: 'nick_duplicated_user', email: 'nick_dup@example.com') }
+        before { create(:user, nick: duplicated_nick) }
+        let(:attr) { { nick: duplicated_nick } }
         it { expect(user).to_not be_valid }
       end
     end
@@ -152,6 +148,24 @@ RSpec.describe User, type: :model do
           it { expect(user).to_not be_valid }
         end
       end
+    end
+  end
+
+  describe 'scope to specify order' do
+    let!(:alice)   { create(:user, name: 'alice',   nick: 'alice',   email: 'alice@example.com',   member_number: '2') }
+    let!(:bob)     { create(:user, name: 'bob',     nick: 'bob',     email: 'bob@example.com',     member_number: '1') }
+    let!(:charlie) { create(:user, name: 'charlie', nick: 'charlie', email: 'charlie@example.com', member_number: '3') }
+
+    describe ':order_by_nick' do
+      it { expect(User.order_by_nick.all).to match([alice, bob, charlie]) }
+    end
+
+    describe ':recent' do
+      it { expect(User.recent.all).to match([charlie, bob, alice]) }
+    end
+
+    describe ':order_by_member_number' do
+      it { expect(User.order_by_member_number.all).to match([bob, alice, charlie]) }
     end
   end
 end

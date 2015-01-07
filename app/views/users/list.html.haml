@@ -1,0 +1,27 @@
+%div.content.pure-u-1.pure-u-md-3-4
+  %div
+    %div.posts
+      %h1.content-subhead
+      %section.post
+        %header.post-header
+          %h2
+            Member List
+        %div.post-description
+          %table.user_list.pure-table
+            %thead
+              %tr
+                %th icon
+                %th nick
+                %th name
+                %th member number
+                %th last update
+            %tbody
+              - @members.each_with_index do |member, line|
+                %tr{ class: line.odd? ? 'pure-table-odd' : '' }
+                  %td= gravatar_image_tag(member)
+                  %td
+                    = link_to member.nick, home_path(member.nick)
+                  %td= member.name
+                  %td= member.member_number
+                  %td= member.updated_at
+  = paginate @members
