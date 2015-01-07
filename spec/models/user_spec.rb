@@ -154,4 +154,22 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe 'scope to specify order' do
+    let!(:alice)   { create(:user, name: 'alice',   nick: 'alice',   email: 'alice@example.com',   member_number: '2') }
+    let!(:bob)     { create(:user, name: 'bob',     nick: 'bob',     email: 'bob@example.com',     member_number: '1') }
+    let!(:charlie) { create(:user, name: 'charlie', nick: 'charlie', email: 'charlie@example.com', member_number: '3') }
+
+    describe ':order_by_nick' do
+      it { expect(User.order_by_nick.all).to match([alice, bob, charlie]) }
+    end
+
+    describe ':recent' do
+      it { expect(User.recent.all).to match([charlie, bob, alice]) }
+    end
+
+    describe ':order_by_member_number' do
+      it { expect(User.order_by_member_number.all).to match([bob, alice, charlie]) }
+    end
+  end
 end
