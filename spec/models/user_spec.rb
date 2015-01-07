@@ -35,19 +35,15 @@ RSpec.describe User, type: :model do
       end
 
       context 'when duplicated' do
-        before { create(:user) }
+        let!(:existing_user) { create(:user) }
 
         context 'with same case' do
+          let(:attr) { { name: existing_user.name } }
           it { expect(user).to_not be_valid }
         end
 
         context 'with another case' do
-          let(:attr) do
-            {
-              name: User.first.name.upcase,
-              email: 'other_dummy_user@example.com',
-            }
-          end
+          let(:attr) { { name: existing_user.name.upcase } }
           it { expect(user).to_not be_valid }
         end
       end
@@ -117,6 +113,7 @@ RSpec.describe User, type: :model do
 
       context 'when duplicated' do
         before { create(:user, nick: duplicated_nick) }
+        let(:attr) { { nick: duplicated_nick } }
         it { expect(user).to_not be_valid }
       end
     end
