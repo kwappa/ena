@@ -11,3 +11,5 @@ config/database.yml
 
 .ruby-version
 coverage/
+
+public/assets/

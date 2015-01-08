@@ -18,7 +18,8 @@ gem 'devise',       '~> 3.4.1'
 gem 'omniauth',     '~> 1.2.2'
 gem 'compass-rails'
 gem 'kaminari'
-gem 'font-awesome-sass'
+gem 'font-awesome-rails'
+gem 'pure-css-rails'
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3'
