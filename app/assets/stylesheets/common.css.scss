@@ -3,5 +3,11 @@ div.common-linkbar {
     bottom: 0;
     left: 0;
     margin: 8px;
-    font-size: 50%;
+
+    .pure-button,
+    form {
+        @include clearfix;
+        float: left;
+        margin-right: 4px;
+    }
 }

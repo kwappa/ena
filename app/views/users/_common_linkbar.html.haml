@@ -1,10 +1,15 @@
 .common-linkbar
   - if user_signed_in?
+    = link_to home_path(current_user.nick), class: 'pure-button' do
+      %i.fa.fa-user.fa-lg
+
+  = link_to users_list_path, class: 'pure-button' do
+    %i.fa.fa-users.fa-lg
+
+  - if user_signed_in?
     = form_tag(destroy_user_session_path, method: :delete) do
       %button.pure-button{ type: 'submit' }
         %i.fa.fa-sign-out.fa-lg
-          Logout
   - else
     = link_to root_path, class: 'pure-button' do
       %i.fa.fa-sign-in.fa-lg
-        Login
