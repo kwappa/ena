@@ -1,0 +1,10 @@
+.common-linkbar
+  - if user_signed_in?
+    = form_tag(destroy_user_session_path, method: :delete) do
+      %button.pure-button{ type: 'submit' }
+        %i.fa.fa-sign-out.fa-lg
+          Logout
+  - else
+    = link_to root_path, class: 'pure-button' do
+      %i.fa.fa-sign-in.fa-lg
+        Login

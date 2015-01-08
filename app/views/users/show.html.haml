@@ -44,9 +44,3 @@
           %div.resume
             - if @user.profile.present?
               = @user.profile.render(:body).html_safe
-    %div.posts
-      %h1.content-subhead
-      %section.post
-        %div.post-description
-          = form_tag(destroy_user_session_path, method: :delete) do
-            = submit_tag 'Logout'
