@@ -3,4 +3,6 @@
     = f.text_area :body
     = f.hidden_field :user_id
   .actions
-    = f.submit 'Save'
+    = button_tag class: 'pure-button' do
+      %i.fa.fa-save.fa-lg
+        Save
