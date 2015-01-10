@@ -1,26 +1,4 @@
 %div.content.pure-u-1.pure-u-md-3-4
   %div
-    %div.posts
-      %h1.content-subhead
-      %section.post
-        %header.post-header
-          %h2
-            Log in
-        %div.post-description
-          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-            .field
-              = f.label :email
-              %br/
-              = f.email_field :email, autofocus: true
-            .field
-              = f.label :password
-              %br/
-              = f.password_field :password, autocomplete: "off"
-            - if devise_mapping.rememberable?
-              .field
-                = f.check_box :remember_me
-                = f.label :remember_me
-            .actions
-              = button_tag class: 'pure-button' do
-                %i.fa.fa-sign-in.fa-lg
-                  Login
+    = render 'form'
+    = render 'devise/registrations/link_to_sign_up'

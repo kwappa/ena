@@ -1,36 +1,4 @@
 %div.content.pure-u-1.pure-u-md-3-4
   %div
-    %div.posts
-      %h1.content-subhead
-      %section.post
-        %header.post-header
-          %h2
-            Login
-        %div.post-description
-          = form_for(User.new, as: :user, url: session_path(:user)) do |f|
-            %table.profile.edit_form
-              %tr
-                %th
-                  = f.label :email
-                %td
-                  = f.email_field :email, autofocus: true
-              %tr
-                %th
-                  = f.label :password
-                %td
-                  = f.password_field :password, autocomplete: 'off'
-              %tr
-                %th
-                %td
-                  = button_tag class: 'pure-button' do
-                    %i.fa.fa-sign-in.fa-lg
-                      Login
-
-    %div.posts
-      %h1.content-subhead
-      %section.post
-        %header.post-header
-          %h2
-            Sign Up
-        %div.post-description
-          = link_to 'Create Account Here', new_user_registration_path
+    = render 'devise/sessions/form', resource: User.new, resource_name: :user
+    = render 'devise/registrations/link_to_sign_up'
