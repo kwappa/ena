@@ -6,6 +6,8 @@
         %header.post-header
           %h2
             Edit Resume
+            = link_to home_path(@user.nick), class: 'edit_link' do
+              %i.fa.fa-arrow-circle-o-left.fa-lg
         %div.post-description
           %div.profile_form
             = render 'form', form_action: :update
