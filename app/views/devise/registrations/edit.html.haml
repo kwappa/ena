@@ -7,61 +7,63 @@
           %h2
             Edit Profile
             - if myself?(@user)
-              = link_to('[ Back ]', home_path(@user.nick), class: 'edit_link')
+              = link_to home_path(@user.nick), class: 'edit_link' do
+                %i.fa.fa-arrow-circle-o-left.fa-lg
+
         %div.post-description
           = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-            %table.profile.edit_form
+            %table.profile.edit_form.pure-table.pure-table-bordered
               %tr
-                %th
+                %td.column_name
                   = f.label :name
                 %td
                   = f.text_field :name
               %tr
-                %th
+                %td.column_name
                   = f.label :nick
                 %td
                   = f.text_field :nick
               %tr
-                %th
+                %td.column_name
                   = f.label :screen_name_kana
                 %td
                   = f.text_field :screen_name_kana
               %tr
-                %th
+                %td.column_name
                   = f.label :screen_name
                 %td
                   = f.text_field :screen_name
               %tr
-                %th
+                %td.column_name
                   = f.label :email
                 %td
                   = f.email_field :email
               %tr
-                %th
+                %td.column_name
                   = f.label :member_number
                 %td
                   = f.text_field :member_number
               %tr
-                %th
+                %td.column_name
                   = f.label :password
                 %td
                   = f.password_field :password, autocomplete: 'off'
                   %br
                   %i (leave blank if you don't want to change it)
               %tr
-                %th
+                %td.column_name
                   = f.label :password_confirmation
                 %td
                   = f.password_field :password_confirmation, autocomplete: 'off'
               %tr
-                %th
+                %td.column_name
                   = f.label :current_password
                 %td
                   = f.password_field :current_password, autocomplete: 'off'
                   %br
                   %i (we need your current password to confirm your changes)
               %tr
-                %th
+                %td.column_name
                 %td
                   = button_tag class: 'pure-button' do
                     %i.fa.fa-save.fa-lg
