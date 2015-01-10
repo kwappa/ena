@@ -5,6 +5,7 @@
       %section.post
         %header.post-header
           %h2
+            %i.fa.fa-user.fa-lg
             Profile
             - if myself?(@user)
               = link_to edit_user_registration_path, class: 'edit_link' do
@@ -38,6 +39,7 @@
       %section.post
         %header.post-header
           %h2
+            %i.fa.fa-file-text.fa-lg
             Resume
             - if myself?(@user)
               = link_to edit_users_profile_path, class: 'edit_link' do
