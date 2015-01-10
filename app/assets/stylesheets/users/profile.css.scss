@@ -209,8 +209,8 @@ a.edit_link {
     }
 }
 
-.gravatar_icon {
-    @include border-radius(8px);
+img.gravatar_icon {
+    @include border-radius(4px);
 }
 
 .code-frame pre {

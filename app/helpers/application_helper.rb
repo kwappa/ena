@@ -4,6 +4,6 @@ module ApplicationHelper
   end
 
   def gravatar_image_tag(user)
-    image_tag("http://gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email)}", class: 'gravater_icon')
+    image_tag("http://gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email)}", class: 'gravatar_icon')
   end
 end
