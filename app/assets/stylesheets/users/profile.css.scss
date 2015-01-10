@@ -39,29 +39,9 @@ h3 {
 }
 
 table.profile {
-    th, td {
-        border: 1px dotted silver;
-        padding: 4px 8px;
-    }
-
-    th {
+    td.column_name {
+        font-weight: bold;
         text-align: right;
-    }
-    &.edit_form {
-        input[type="text"], input[type="email"], input[type="password"] {
-            width: 320px;
-        }
-    }
-}
-
-.profile_form {
-    border: 1px dolid red;
-    textarea {
-        width: 100%;
-        height: 32em;
-    }
-    input[type=submit] {
-        margin-top: 16px;
     }
 }
 

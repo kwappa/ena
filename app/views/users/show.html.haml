@@ -10,26 +10,26 @@
               = link_to edit_user_registration_path, class: 'edit_link' do
                 %i.fa.fa-edit.fa-lg
         %div.post-description
-          %table.profile
+          %table.profile.pure-table.pure-table-bordered
             %tr
-              %th
+              %td.column_name
                 Name
               %td
                 #{@user.name} / #{@user.nick}
             %tr
-              %th
+              %td.column_name
                 Screen Name
               %td
                 %ruby
                   %rb= @user.screen_name
                   %rt= @user.screen_name_kana
             %tr
-              %th
+              %td.column_name
                 Email
               %td
                 = @user.email
             %tr
-              %th
+              %td.column_name
                 Member Number
               %td
                 = @user.member_number
