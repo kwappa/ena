@@ -66,6 +66,10 @@ if Internal Server Error is raised when highlight code by Pygments (maybe it hap
 
 ## How to deploy to Heroku
 
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+this button works correctly (maybe).
+
 specify build pack url via Heroku Toolbelt
 
 ```
