@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
     username_not_reserved: true
   }
 
-  has_one :profile, class_name: 'UserProfile'
+  has_one :resume, class_name: 'UserResume'
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable

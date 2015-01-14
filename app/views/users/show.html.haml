@@ -42,9 +42,9 @@
             %i.fa.fa-file-text.fa-lg
             Resume
             - if myself?(@user)
-              = link_to edit_users_profile_path, class: 'edit_link' do
+              = link_to edit_users_resume_path, class: 'edit_link' do
                 %i.fa.fa-edit.fa-lg
         %div.post-description
           %div.resume
-            - if @user.profile.present?
-              = @user.profile.render(:body).html_safe
+            - if @user.resume.present?
+              = @user.resume.render(:body).html_safe
