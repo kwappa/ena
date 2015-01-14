@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   }
 
   has_one :resume, class_name: 'UserResume'
+  has_many :user_taggings
+  has_many :tags, through: :user_taggings, class_name: 'UserTag'
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable
