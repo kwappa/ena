@@ -1,0 +1,9 @@
+%div
+  = form_for @user_resume, url: { controller: :user_resumes, action: form_action } , html: { class: 'resume_form' } do |f|
+    .field
+      = f.text_area :body
+      = f.hidden_field :user_id
+    .actions
+      = button_tag class: 'pure-button' do
+        %i.fa.fa-save.fa-lg
+          Save

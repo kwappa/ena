@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   namespace :users do
     get :list
-    resource :user_profiles, controller: '/user_profiles', as: :profile, path: :profile
+    resource :user_resumes, controller: '/user_resumes', as: :resume, path: :resume
   end
 
   scope ':nick' do

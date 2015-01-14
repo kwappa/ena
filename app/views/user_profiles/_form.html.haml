@@ -1,8 +1,0 @@
-= form_for @user_profile, url: { controller: :user_profiles, action: form_action } , html: { class: 'profile_form' } do |f|
-  .field
-    = f.text_area :body
-    = f.hidden_field :user_id
-  .actions
-    = button_tag class: 'pure-button' do
-      %i.fa.fa-save.fa-lg
-        Save
