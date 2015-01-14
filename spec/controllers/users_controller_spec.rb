@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
+  render_views
+
   describe '#index' do
     let(:user) { create(:user) }
     subject(:index) { get :index }
@@ -49,6 +51,24 @@ RSpec.describe UsersController, type: :controller do
       it 'sorted by updated_at desc' do
         expect(assigns[:members].pluck(:id)).to match User.recent.pluck(:id).first(per_page)
       end
+    end
+  end
+
+  describe '#show' do
+    let(:user) { create(:user) }
+    subject(:show) { get :show, nick: user.nick }
+
+    context 'when user is not logging in' do
+      it { expect(show).to be_ok }
+    end
+
+    context 'when user is logging in as myself' do
+      before { sign_in user }
+      it { expect(show).to be_ok }
+    end
+
+    context 'when user does not found' do
+      it { expect { get :show, nick: 'NOT_EXISTING_USER' }.to raise_error ActiveRecord::RecordNotFound }
     end
   end
 end
