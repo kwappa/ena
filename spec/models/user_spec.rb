@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { build(:user) }
 
   describe 'validations' do
+    let(:user) { build(:user) }
     subject(:user) { build(:user, attr) }
     let(:attr) { { } }
 
@@ -166,6 +166,30 @@ RSpec.describe User, type: :model do
 
     describe ':order_by_member_number' do
       it { expect(User.order_by_member_number.all).to match([bob, alice, charlie]) }
+    end
+  end
+
+  describe 'tag operation' do
+    let(:user) { create(:user) }
+
+    describe '#tag_keyword' do
+      let(:keyword) { 'a keyword' }
+      let(:another_keyword) { 'another keyword' }
+      subject(:tagging) { user.tag_keyword(keyword) }
+
+      context 'with a keyword' do
+        it { expect { tagging }.to change { user.tags.count }.from(0).to(1) }
+      end
+
+      context 'repeat with same keyword' do
+        before { user.tag_keyword(keyword) }
+        it { expect { tagging }.to_not change { user.tags.count }.from(1) }
+      end
+
+      context 'repeat with another keyword' do
+        before { user.tag_keyword(another_keyword) }
+        it { expect { tagging }.to change { user.tags.count }.from(1).to(2) }
+      end
     end
   end
 end

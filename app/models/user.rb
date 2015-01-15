@@ -22,4 +22,8 @@ class User < ActiveRecord::Base
   scope :order_by_nick,          -> { order(:nick) }
   scope :recent,                 -> { order(updated_at: :desc) }
   scope :order_by_member_number, -> { order(:member_number) }
+
+  def tag_keyword(keyword)
+    UserTag.retrieve(keyword).attach(self)
+  end
 end
