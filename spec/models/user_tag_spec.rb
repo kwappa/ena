@@ -5,8 +5,14 @@ RSpec.describe UserTag, type: :model do
 
   describe '.retrieve' do
     subject(:tag) { described_class.retrieve(keyword) }
+
     context 'when new keyword given' do
       it { expect { tag }.to change { described_class.count }.from(0).to(1) }
+    end
+
+    context 'when keyword already exist' do
+      before { described_class.retrieve(keyword) }
+      it { expect { tag }.to_not change { described_class.count }.from(1) }
     end
   end
 
