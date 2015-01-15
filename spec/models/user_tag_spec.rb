@@ -26,4 +26,14 @@ RSpec.describe UserTag, type: :model do
       end
     end
   end
+
+  describe '.hash_keyword' do
+    let(:keyword) { 'A B　Cｶﾀｶﾅひらがなｆｕｎｃｔｉｏｎ（）' }
+    let(:normalized_and_downcased_keyword) { 'abcカタカナひらがなfunction()' }
+    subject(:result) { described_class.hash_keyword(keyword) }
+
+    it 'creates digest by keyword that normalized and downcased' do
+      expect(result).to eq described_class.hash_keyword(normalized_and_downcased_keyword)
+    end
+  end
 end

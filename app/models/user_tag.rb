@@ -7,4 +7,8 @@ class UserTag < ActiveRecord::Base
   def self.normalize_keyword(keyword)
     NKF.nkf('-w -X -Z', keyword.gsub(/[\s　]/, ''))
   end
+
+  def self.hash_keyword(keyword)
+    Digest::SHA256.hexdigest(self.normalize_keyword(keyword).downcase)
+  end
 end
