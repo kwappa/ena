@@ -1,8 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe UserTag, type: :model do
+  let(:keyword) { 'keyword' }
+
+  describe '.retrieve' do
+    subject(:tag) { described_class.retrieve(keyword) }
+    context 'when new keyword given' do
+      it { expect { tag }.to change { described_class.count }.from(0).to(1) }
+    end
+  end
+
   describe '.normalize_keyword' do
-    let(:keyword) { 'keyword' }
     subject(:result) { described_class.normalize_keyword(keyword) }
 
     context 'includes blank' do
