@@ -1,17 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe UserTag, type: :model do
-  let(:keyword) { 'keyword' }
+  let(:keyword) { 'ｎｏｒｍａｌｉｚｅｄ　K e y w o r d' }
 
   describe '.retrieve' do
     subject(:tag) { described_class.retrieve(keyword) }
 
     context 'when new keyword given' do
       it { expect { tag }.to change { described_class.count }.from(0).to(1) }
+      it 'creates with normalized keyword' do
+        expect(tag.name).to eq 'normalizedKeyword'
+      end
     end
 
     context 'when keyword already exist' do
       before { described_class.retrieve(keyword) }
+      it { expect { tag }.to_not change { described_class.count }.from(1) }
+    end
+
+    context 'when same keyword already exist but with another case' do
+      before { described_class.retrieve(keyword.upcase) }
       it { expect { tag }.to_not change { described_class.count }.from(1) }
     end
   end
