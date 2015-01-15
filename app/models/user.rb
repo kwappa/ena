@@ -26,4 +26,8 @@ class User < ActiveRecord::Base
   def tag_keyword(keyword)
     UserTag.retrieve(keyword).attach(self)
   end
+
+  def detach(tag)
+    user_taggings.find_by(user_tag_id: tag).try(:destroy)
+  end
 end

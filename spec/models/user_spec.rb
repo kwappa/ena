@@ -171,10 +171,10 @@ RSpec.describe User, type: :model do
 
   describe 'tag operation' do
     let(:user) { create(:user) }
+    let(:keyword) { 'a keyword' }
+    let(:another_keyword) { 'another keyword' }
 
     describe '#tag_keyword' do
-      let(:keyword) { 'a keyword' }
-      let(:another_keyword) { 'another keyword' }
       subject(:tagging) { user.tag_keyword(keyword) }
 
       context 'with a keyword' do
@@ -189,6 +189,21 @@ RSpec.describe User, type: :model do
       context 'repeat with another keyword' do
         before { user.tag_keyword(another_keyword) }
         it { expect { tagging }.to change { user.tags.count }.from(1).to(2) }
+      end
+    end
+
+    describe '#detach_tag' do
+      let(:tag) { UserTag.retrieve(keyword) }
+      subject(:detach) { user.detach(tag) }
+      before { user.tag_keyword(another_keyword) }
+
+      context 'with not attached tag' do
+        it { expect { detach }.to_not change { user.tags.count }.from(1) }
+      end
+
+      context 'with attached tag' do
+        before { user.tag_keyword(keyword) }
+        it { expect { detach }.to change { user.tags.count }.from(2).to(1) }
       end
     end
   end
