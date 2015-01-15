@@ -15,4 +15,11 @@ class UserTag < ActiveRecord::Base
   def self.hash_keyword(keyword)
     Digest::SHA256.hexdigest(self.normalize_keyword(keyword).downcase)
   end
+
+  def attach(user)
+    unless (user.tags.include?(self))
+      UserTagging.create(user_id: user.id, user_tag_id: self.id)
+    end
+    self
+  end
 end

@@ -58,4 +58,22 @@ RSpec.describe UserTag, type: :model do
       expect(result).to eq described_class.hash_keyword(normalized_and_downcased_keyword)
     end
   end
+
+  describe '#attach' do
+    let(:first_tag)  { described_class.retrieve('first tag') }
+    let(:second_tag) { described_class.retrieve('second tag') }
+    let(:alice)      { create(:user) }
+
+    context 'with tag that is not attached' do
+      subject(:attach) { first_tag.attach(alice) }
+      it { expect { attach }.to change { alice.tags.count }.from(0).to(1) }
+    end
+
+    context 'with tag that is already attached' do
+      before { first_tag.attach(alice) }
+      subject(:attach) { first_tag.attach(alice) }
+      it { expect { attach }.to_not change { alice.tags.count }.from(1) }
+      it { expect { second_tag.attach(alice) }.to change { alice.tags.count }.from(1).to(2) }
+    end
+  end
 end
