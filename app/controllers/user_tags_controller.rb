@@ -3,6 +3,7 @@ class UserTagsController < ApplicationController
   before_action :set_target_user
 
   def attach
+    @user.tag_keyword(params[:name])
     redirect_to home_path(@user.nick)
   end
 
