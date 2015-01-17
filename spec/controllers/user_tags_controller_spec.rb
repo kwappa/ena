@@ -53,4 +53,37 @@ RSpec.describe UserTagsController, type: :controller do
       specify { expect(response).to redirect_to new_user_session_path }
     end
   end
+
+  describe '#detach' do
+    let(:tag) { UserTag.retrieve(tag_name) }
+    let(:tag_id) { tag.id }
+    let(:target_nick) { alice.nick }
+    subject(:detach) { delete :detach, nick: target_nick, tag_id: tag_id }
+    before { tag.attach(alice) }
+
+    context 'when guest user' do
+      before { detach }
+      specify { expect(response).to redirect_to new_user_session_path }
+    end
+
+    context 'when alice' do
+      before { sign_in alice }
+
+      context 'with existing tag' do
+        it 'removes tag from user' do
+          expect { detach }.to change { alice.tags.count }.from(1).to(0)
+        end
+      end
+
+      context 'with invalid tag_id' do
+        let(:tag_id) { UserTag.maximum(:id) + 1 }
+        it { expect { detach }.to raise_error ActiveRecord::RecordNotFound }
+      end
+    end
+
+    context 'when bob' do
+      before { sign_in bob }
+        it { expect { detach }.to_not change { alice.tags.count }.from(1) }
+    end
+  end
 end

@@ -44,7 +44,14 @@
         %div.post-description
           %div.user_tags
             - @user.tags.each do |tag|
-              %p.user_tag= tag.name
+              %div.user_tag
+                %i.fa.fa-tag.fa-lg
+                  = tag.name
+                  - if myself?(@user)
+                    = form_tag(user_tag_detach_path(@user.nick), method: :delete, class: 'tag_detach_form', data: { confirm: 'foobar' }) do
+                      = hidden_field_tag :tag_id, tag.id
+                      = button_tag do
+                        %i.fa.fa-remove.fa-lg
           - if user_signed_in?
             %div.attach_user_tag
               = form_tag(user_tag_attach_path(@user.nick)) do

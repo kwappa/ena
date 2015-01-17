@@ -8,6 +8,10 @@ class UserTagsController < ApplicationController
   end
 
   def detach
+    if view_context.myself?(@user)
+      tag = UserTag.find(params[:tag_id])
+      @user.detach(tag) if tag.present?
+    end
     redirect_to home_path(@user.nick)
   end
 

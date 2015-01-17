@@ -68,6 +68,17 @@ a.edit_link {
     font-size: 0.7em;
 }
 
+form.tag_detach_form {
+    display: inline;
+    button {
+        border: none;
+        background: none;
+        font-size: 50%;
+        margin: 0;
+        padding: 0;
+    }
+}
+
 .sidebar {
     background: rgb(61, 79, 93);
     color: #fff;
@@ -220,3 +231,4 @@ img.gravatar_icon {
     white-space: pre-wrap;
     font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
 }
+

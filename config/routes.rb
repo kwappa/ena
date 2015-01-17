@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     get '/', controller: :users, action: :show, as: :home
     scope :user_tags, controller: :user_tags, as: :user_tag, path: :tag do
       post :attach
-      post :detach
+      delete :detach
     end
   end
 end
