@@ -5,7 +5,9 @@ class UserTag < ActiveRecord::Base
   has_many :users, through: :user_taggings
 
   def self.retrieve(name)
-    create_with(name: normalize_keyword(name)).find_or_create_by(search_hash: hash_keyword(name))
+    keyword = normalize_keyword(name)
+    return nil if keyword.blank?
+    create_with(name: keyword).find_or_create_by(search_hash: hash_keyword(name))
   end
 
   def self.normalize_keyword(keyword)

@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   scope :order_by_member_number, -> { order(:member_number) }
 
   def tag_keyword(keyword)
-    UserTag.retrieve(keyword).attach(self)
+    UserTag.retrieve(keyword).try(:attach, self)
   end
 
   def detach(tag)

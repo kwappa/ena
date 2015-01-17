@@ -6,6 +6,11 @@ RSpec.describe UserTag, type: :model do
   describe '.retrieve' do
     subject(:tag) { described_class.retrieve(keyword) }
 
+    context 'when blank keywrod given' do
+      let(:keyword) { '' }
+      it { expect(tag).to be_nil }
+    end
+
     context 'when new keyword given' do
       it { expect { tag }.to change { described_class.count }.from(0).to(1) }
       it 'creates with normalized keyword' do
