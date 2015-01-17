@@ -70,7 +70,7 @@ if Internal Server Error is raised when highlight code by Pygments (maybe it hap
 
 this button works correctly (maybe).
 
-specify build pack url via Heroku Toolbelt
+if you want to deploy manually, specify build pack url to your heroku application.
 
 ```
 % heroku config:set BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-multi.git
