@@ -48,7 +48,7 @@
                 %i.fa.fa-tag.fa-lg
                   = tag.name
                   - if myself?(@user)
-                    = form_tag(user_tag_detach_path(@user.nick), method: :delete, class: 'tag_detach_form', data: { confirm: 'foobar' }) do
+                    = form_tag(user_tag_detach_path(@user.nick), method: :delete, class: "tag_detach_form", data: { confirm: "detach tag [#{tag.name}] from you. are yo sure?" }) do
                       = hidden_field_tag :tag_id, tag.id
                       = button_tag do
                         %i.fa.fa-remove.fa-lg
@@ -56,7 +56,7 @@
             %div.attach_user_tag
               = form_tag(user_tag_attach_path(@user.nick)) do
                 = text_field_tag :name
-                = button_tag do
+                = button_tag class: 'pure-button' do
                   %i.fa.fa-tag.fa-lg
                     Attach
     %div.posts
