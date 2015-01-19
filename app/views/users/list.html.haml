@@ -7,21 +7,5 @@
           %h2
             Member List
         %div.post-description
-          %table.user_list.pure-table
-            %thead
-              %tr
-                %th icon
-                %th nick
-                %th name
-                %th member number
-                %th last update
-            %tbody
-              - @members.each_with_index do |member, line|
-                %tr{ class: line.odd? ? 'pure-table-odd' : '' }
-                  %td= gravatar_image_tag(member)
-                  %td
-                    = link_to member.nick, home_path(member.nick)
-                  %td= member.name
-                  %td= member.member_number
-                  %td= member.updated_at
+          = render 'user_list', members: @members
   = paginate @members

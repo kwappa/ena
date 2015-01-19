@@ -24,6 +24,8 @@ class UserTagsController < ApplicationController
   end
 
   def show
+    @tag = UserTag.find(params[:id])
+    @members = @tag.users.page(params[:page]).per(UsersController::MEMBERS_PER_PAGE)
   end
 
   private

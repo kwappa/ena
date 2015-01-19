@@ -3,7 +3,7 @@
   - tags.each do |tag|
     %div.user_tag
       %i.fa.fa-tag.fa-lg
-        = tag.name
+        = link_to tag.name, user_tag_path(tag)
         - if user.present? && myself?(user)
           = form_tag(user_tag_detach_path(user.nick), method: :delete, class: "tag_detach_form", data: { confirm: "detach tag [#{tag.name}] from you. are yo sure?" }) do
             = hidden_field_tag :tag_id, tag.id
