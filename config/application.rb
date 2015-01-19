@@ -16,6 +16,7 @@ module Ena
     ]
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.css *.js)
     config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+    config.time_zone = 'Tokyo'
 
     config.generators do |g|
       g.template_engine = :haml
