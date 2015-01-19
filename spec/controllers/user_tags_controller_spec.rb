@@ -5,6 +5,42 @@ RSpec.describe UserTagsController, type: :controller do
   let!(:bob)   { create(:user, nick: 'bob') }
   let(:tag_name) { 'tag_name' }
 
+  describe '#index' do
+    before do
+      5.times { create(:user_tag) }
+      get(:index)
+    end
+
+    it 'assigns list of tags' do
+      expect(assigns[:tags]).to match_array UserTag.page(1)
+    end
+  end
+
+  describe '#show' do
+    let(:tag_id) { 0 }
+    subject(:show) { get :show, id: tag_id }
+
+    context 'when tag does not exist' do
+      specify { expect { show }.to raise_error ActiveRecord::RecordNotFound }
+    end
+
+    context 'when tag exists' do
+      let!(:tag) { create(:user_tag) }
+      let(:tag_id) { tag.id }
+
+      before do
+        tag.attach(alice)
+        tag.attach(bob)
+        show
+      end
+
+      it 'assigns tag and members' do
+        expect(assigns[:members]).to match_array User.page(1)
+        expect(assigns[:tag]).to eq UserTag.first
+      end
+    end
+  end
+
   describe '#attach' do
     let(:target_nick) { alice.nick }
     subject(:attach) { post :attach, nick: target_nick, name: tag_name }
