@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150114033834) do
+ActiveRecord::Schema.define(version: 20150114120333) do
 
   create_table "user_resumes", force: :cascade do |t|
     t.integer  "user_id",    null: false
@@ -21,6 +21,24 @@ ActiveRecord::Schema.define(version: 20150114033834) do
   end
 
   add_index "user_resumes", ["user_id"], name: "index_user_resumes_on_user_id"
+
+  create_table "user_taggings", force: :cascade do |t|
+    t.integer "user_id",     null: false
+    t.integer "user_tag_id", null: false
+  end
+
+  add_index "user_taggings", ["user_id", "user_tag_id"], name: "index_user_taggings_on_user_id_and_user_tag_id", unique: true
+  add_index "user_taggings", ["user_id"], name: "index_user_taggings_on_user_id"
+  add_index "user_taggings", ["user_tag_id"], name: "index_user_taggings_on_user_tag_id"
+
+  create_table "user_tags", force: :cascade do |t|
+    t.string   "name",        null: false
+    t.string   "search_hash", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "user_tags", ["search_hash"], name: "index_user_tags_on_search_hash", unique: true
 
   create_table "users", force: :cascade do |t|
     t.string   "name",                   null: false

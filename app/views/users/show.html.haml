@@ -39,6 +39,22 @@
       %section.post
         %header.post-header
           %h2
+            %i.fa.fa-tags.fa-lg
+            Tags
+        %div.post-description
+          = render 'user_tags/tags', tags: @user.tags, user: @user
+          - if user_signed_in?
+            %div.attach_user_tag
+              = form_tag(user_tag_attach_path(@user.nick)) do
+                = text_field_tag :name
+                = button_tag class: 'pure-button' do
+                  %i.fa.fa-tag.fa-lg
+                    Attach
+    %div.posts
+      %h1.content-subhead
+      %section.post
+        %header.post-header
+          %h2
             %i.fa.fa-file-text.fa-lg
             Resume
             - if myself?(@user)

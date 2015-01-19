@@ -5,7 +5,8 @@
       %section.post
         %header.post-header
           %h2
-            Member List
+            %i.fa.fa-tags.fa-lg
+            User Tags
         %div.post-description
-          = render 'user_list', members: @members
-  = paginate @members
+          = render 'tags', tags: @tags
+  = paginate @tags

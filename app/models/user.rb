@@ -4,10 +4,12 @@ class User < ActiveRecord::Base
     format: /\A[a-zA-Z0-9_\-]+\Z/,
     uniqueness: { case_sensitive: false },
     length: { minimum: 3, maximum: 240 },
-    username_not_reserved: true
+    username_not_reserved: { additional_reserved_names: %w[foo bar] },
   }
 
   has_one :resume, class_name: 'UserResume'
+  has_many :user_taggings
+  has_many :tags, through: :user_taggings, class_name: 'UserTag'
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable
@@ -20,4 +22,12 @@ class User < ActiveRecord::Base
   scope :order_by_nick,          -> { order(:nick) }
   scope :recent,                 -> { order(updated_at: :desc) }
   scope :order_by_member_number, -> { order(:member_number) }
+
+  def tag_keyword(keyword)
+    UserTag.retrieve(keyword).try(:attach, self)
+  end
+
+  def detach(tag)
+    user_taggings.find_by(user_tag_id: tag).try(:destroy)
+  end
 end
