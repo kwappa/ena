@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
     format: /\A[a-zA-Z0-9_\-]+\Z/,
     uniqueness: { case_sensitive: false },
     length: { minimum: 3, maximum: 240 },
-    username_not_reserved: true
+    username_not_reserved: { additional_reserved_names: %w[foo bar] },
   }
 
   has_one :resume, class_name: 'UserResume'

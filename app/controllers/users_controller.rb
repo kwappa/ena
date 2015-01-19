@@ -19,7 +19,6 @@ class UsersController < ApplicationController
   end
 
   def list
-    @user = current_user
     relation = case params[:sort]
                when 'recent' then User.recent
                when 'member_number' then User.order_by_member_number

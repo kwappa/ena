@@ -1,6 +1,8 @@
 class UserTagsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_target_user
+  before_action :authenticate_user!, only: [:attach, :detach]
+  before_action :set_target_user,    only: [:attach, :detach]
+
+  layout 'users'
 
   def attach
     @user.tag_keyword(params[:name])
@@ -13,6 +15,12 @@ class UserTagsController < ApplicationController
       @user.detach(tag) if tag.present?
     end
     redirect_to home_path(@user.nick)
+  end
+
+  def index
+  end
+
+  def show
   end
 
   private
