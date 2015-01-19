@@ -1,4 +1,6 @@
 class UserTagsController < ApplicationController
+  TAGS_PER_PAGE = 100
+
   before_action :authenticate_user!, only: [:attach, :detach]
   before_action :set_target_user,    only: [:attach, :detach]
 
@@ -18,6 +20,7 @@ class UserTagsController < ApplicationController
   end
 
   def index
+    @tags = UserTag.page(params[:page]).per(TAGS_PER_PAGE)
   end
 
   def show

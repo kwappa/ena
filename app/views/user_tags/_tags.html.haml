@@ -1,0 +1,11 @@
+- user ||= user
+%div.user_tags
+  - tags.each do |tag|
+    %div.user_tag
+      %i.fa.fa-tag.fa-lg
+        = tag.name
+        - if user.present? && myself?(user)
+          = form_tag(user_tag_detach_path(user.nick), method: :delete, class: "tag_detach_form", data: { confirm: "detach tag [#{tag.name}] from you. are yo sure?" }) do
+            = hidden_field_tag :tag_id, tag.id
+            = button_tag do
+              %i.fa.fa-remove.fa-lg
