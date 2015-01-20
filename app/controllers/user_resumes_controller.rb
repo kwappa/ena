@@ -26,7 +26,7 @@ class UserResumesController < ApplicationController
   end
 
   def update
-    @user_resume.update_attributes(body: user_resume_params[:body])
+    @user_resume.update_body(user_resume_params[:body])
     flash[:notice] = 'Resume updated.'
     redirect_to home_path(@user.nick)
   end
