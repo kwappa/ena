@@ -1,6 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe UserResume, type: :model do
+  describe 'unify newline and strip' do
+    let(:user) { create(:user) }
+    let(:original_body) { "   new\r\nline\rwith\nblank\t" }
+    let(:saved_body) { "new\nline\nwith\nblank" }
+
+    context 'when create' do
+      before { described_class.create(user_id: user.id, body: original_body) }
+      it 'strips and unifies new line' do
+        expect(user.resume.body).to eq saved_body
+      end
+    end
+
+    context 'when update' do
+      let(:old_body) { 'old_body' }
+      before { described_class.create(user_id: user.id, body: old_body) }
+      it 'strips and unifies new line' do
+        expect { user.resume.update_body(original_body) }.to change { user.resume.body }.from(old_body).to(saved_body)
+      end
+    end
+  end
 
   describe 'after save' do
     let(:old_time) { 1.minute.ago.change(usec: 0) }
