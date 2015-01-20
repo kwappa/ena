@@ -6,7 +6,7 @@ RSpec.describe UserTag, type: :model do
   describe '.retrieve' do
     subject(:tag) { described_class.retrieve(keyword) }
 
-    context 'when blank keywrod given' do
+    context 'when blank keyword given' do
       let(:keyword) { '' }
       it { expect(tag).to be_nil }
     end
