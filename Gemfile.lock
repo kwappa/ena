@@ -81,6 +81,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    diffy (3.0.7)
     docile (1.1.5)
     erb2haml (0.1.5)
       html2haml
@@ -300,6 +301,7 @@ DEPENDENCIES
   coveralls
   database_rewinder
   devise (~> 3.4.1)
+  diffy (~> 3.0.7)
   erb2haml
   factory_girl_rails
   font-awesome-rails
