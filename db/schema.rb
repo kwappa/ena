@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150114120333) do
+ActiveRecord::Schema.define(version: 20150120053756) do
+
+  create_table "user_resume_histories", force: :cascade do |t|
+    t.integer  "user_id",                 null: false
+    t.text     "diff",       default: "", null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "user_resume_histories", ["user_id", "updated_at"], name: "index_user_resume_histories_on_user_id_and_updated_at"
 
   create_table "user_resumes", force: :cascade do |t|
     t.integer  "user_id",    null: false
