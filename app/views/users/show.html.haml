@@ -64,3 +64,7 @@
           %div.resume
             - if @user.resume.present?
               = @user.resume.render(:body).html_safe
+          - if @user.resume_histories.present?
+            = link_to user_resume_histories_path do
+              %i.fa.fa-files-o.fa-lg
+              Edit Histories
