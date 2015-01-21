@@ -50,6 +50,34 @@ table.profile {
     }
 }
 
+.edit_histories {
+    @include clearfix;
+    width: 100%;
+
+    .edit_history_list {
+        float: left;
+        width: 25%;
+        table {
+            width: 90%;
+            margin: auto;
+        }
+    }
+
+    .edit_history_detail {
+        float: left;
+        width: 75%;
+        .edit_history_detail_container {
+            padding-left: 16px;
+            height: 25em;
+            overflow-y: auto;
+        }
+    }
+}
+
+ul.pure-paginator {
+    margin-bottom: 32px;
+}
+
 form.resume_form {
     textarea {
         width: 80%;

@@ -1,0 +1,38 @@
+= content_for :header do
+  javascript_include_tag 'resume_histories'
+
+%div.content.pure-u-1.pure-u-md-3-4
+  %div
+    %div.posts
+      %h1.content-subhead
+      %section.post
+        %header.post-header
+          %h2
+            %i.fa.fa-files-o.fa-lg
+            Edit Histories
+        %div.post-description
+          %div.edit_histories
+            %div.edit_history_list
+              %table.pure-table.pure-table-bordered
+                - @histories.each_with_index do |history, idx|
+                  %tbody
+                    %tr{ class: idx.odd? ? 'pure-table-odd' : '' }
+                      %td.history_data{ data: { history: history.render(:quoted_diff)} }
+                        = history.updated_at
+                      %td
+                        = link_to '#', class: 'show_resume_history' do
+                          %i.fa.fa-file-text-o.fa-lg
+            %div.edit_history_detail
+              %div.edit_history_detail_container
+      = paginate @histories
+    %div.posts
+      %h1.content-subhead
+      %section.post
+        %header.post-header
+          %h2
+            %i.fa.fa-file-text.fa-lg
+            Resume
+        %div.post-description
+          %div.resume
+            - if @user.resume.present?
+              = @user.resume.render(:body).html_safe

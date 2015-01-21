@@ -71,4 +71,27 @@ RSpec.describe UsersController, type: :controller do
       it { expect { get :show, nick: 'NOT_EXISTING_USER' }.to raise_error ActiveRecord::RecordNotFound }
     end
   end
+
+  describe '#resume_histories' do
+    let(:user) { create(:user) }
+    subject(:resume_histories) { get :resume_histories, nick: user.nick }
+
+    context 'without resume' do
+      it 'shows blank page' do
+        expect(resume_histories).to be_ok
+        expect(user.resume).to_not be_present
+        expect(user.resume_histories).to_not be_present
+      end
+    end
+
+    context 'with resume and histories' do
+      let!(:resume) { create(:user_resume, user: user) }
+      before { resume }
+      it 'shows resume and histories' do
+        expect(resume_histories).to be_ok
+        expect(user.resume).to be_present
+        expect(user.resume_histories).to be_present
+      end
+    end
+  end
 end
