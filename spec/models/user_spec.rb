@@ -199,6 +199,15 @@ RSpec.describe User, type: :model do
     specify { expect(suspended_user).to be_suspended }
   end
 
+  describe '#suspended_status_message' do
+    let!(:active_user)    { create(:user) }
+    let!(:suspended_user) { create(:user, suspend_reason: 1) }
+    let!(:resigned_user)  { create(:user, suspend_reason: 2) }
+    specify { expect(active_user.suspend_status_message).to eq    'Active' }
+    specify { expect(suspended_user.suspend_status_message).to eq 'Suspension' }
+    specify { expect(resigned_user.suspend_status_message).to eq  'Resignation' }
+  end
+
   describe 'tag operation' do
     let(:user) { create(:user) }
     let(:keyword) { 'a keyword' }
