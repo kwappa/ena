@@ -1,0 +1,11 @@
+%h1.content-subhead
+%section.post
+  %header.post-header
+    %h2
+      = user_suspend_icon_tag(user).html_safe
+      = @user.suspend_status_message
+  %div.post-description
+    This user is suspended
+    - if user.suspended_on.present?
+      on #{user.suspended_on}
+    \.
