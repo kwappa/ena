@@ -10,3 +10,42 @@ div.common-linkbar {
         margin-right: 4px;
     }
 }
+
+@mixin font-awesome {
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+}
+
+.flash_message {
+    .pure-button {
+        display: block;
+        margin: 8px 48px;;
+        text-align: left;
+        &.button-notice {
+            &:before {
+                @include font-awesome;
+                content: "\f05a";
+            }
+            background: #e1f2fa;
+            color: #5992aa;
+        }
+        &.button-error {
+            &:before {
+                @include font-awesome;
+                content: "\f057";
+            }
+            background: #f5ab9e;
+            color: #8c3a2b;
+        }
+        &.button-warning {
+            &:before {
+                @include font-awesome;
+                content: "\f071";
+            }
+            background: #fcebbd;
+            color: #af9540;
+        }
+    }
+}
