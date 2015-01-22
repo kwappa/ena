@@ -11,39 +11,34 @@ div.common-linkbar {
     }
 }
 
-@mixin font-awesome {
+@mixin font-awesome-icon($icon-code) {
     font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    display: inline-block;
+
+    &:before {
+        content: $icon-code;
+    }
 }
 
 .flash_message {
     .pure-button {
-        display: block;
         margin: 8px 48px;;
         text-align: left;
+        display: block;
+
         &.button-notice {
-            &:before {
-                @include font-awesome;
-                content: "\f05a";
-            }
+            @include font-awesome-icon("\f05a");
             background: #e1f2fa;
             color: #5992aa;
         }
+
         &.button-error {
-            &:before {
-                @include font-awesome;
-                content: "\f057";
-            }
+            @include font-awesome-icon("\f057");
             background: #f5ab9e;
             color: #8c3a2b;
         }
+
         &.button-warning {
-            &:before {
-                @include font-awesome;
-                content: "\f071";
-            }
+            @include font-awesome-icon("\f071");
             background: #fcebbd;
             color: #af9540;
         }
