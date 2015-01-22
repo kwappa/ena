@@ -6,4 +6,7 @@
     = javascript_include_tag 'application'
     = yield :header
   %body
+    .flash_message
+      - flash.each do |type, msg|
+        = content_tag :div, msg, class: "button-#{type} pure-button"
     = content_for?(:content) ? yield(:content) : yield
