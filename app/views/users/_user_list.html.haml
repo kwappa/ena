@@ -12,6 +12,8 @@
         %td= gravatar_image_tag(member)
         %td
           = link_to member.nick, home_path(member.nick)
-        %td= member.name
+        %td
+          = user_suspend_icon_tag(member).html_safe
+          = member.name
         %td= member.member_number
         %td= member.updated_at
