@@ -7,6 +7,12 @@ class User < ActiveRecord::Base
     username_not_reserved: { additional_reserved_names: %w[foo bar] },
   }
 
+  SUSPEND_REASON = {
+    active:      0,
+    suspension:  1,
+    resignation: 2,
+  }
+
   has_one :resume, class_name: 'UserResume'
   has_many :user_taggings
   has_many :tags, through: :user_taggings, class_name: 'UserTag'
@@ -23,6 +29,9 @@ class User < ActiveRecord::Base
   scope :order_by_nick,          -> { order(:nick) }
   scope :recent,                 -> { order(updated_at: :desc) }
   scope :order_by_member_number, -> { order(:member_number) }
+
+  scope :active,    -> { where(suspend_reason: SUSPEND_REASON[:active]) }
+  scope :suspended, -> { where.not(suspend_reason: SUSPEND_REASON[:active]) }
 
   def tag_keyword(keyword)
     UserTag.retrieve(keyword).try(:attach, self)
