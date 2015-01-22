@@ -9,11 +9,14 @@
   %tbody
     - members.each_with_index do |member, line|
       %tr{ class: line.odd? ? 'pure-table-odd' : '' }
-        %td= gravatar_image_tag(member)
+        %td= gravatar_image_tag(member, class: 'user_list')
         %td
           = link_to member.nick, home_path(member.nick)
+          %br
+          = member.name
+        %td
+          = user_name_tag(member).html_safe
         %td
           = user_suspend_icon_tag(member).html_safe
-          = member.name
-        %td= member.member_number
+          = member.member_number
         %td= member.updated_at

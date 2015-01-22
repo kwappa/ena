@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  MEMBERS_PER_PAGE   = 10
+  MEMBERS_PER_PAGE   = 20
   HISTORIES_PER_PAGE = 10
 
   before_action :prepare_user, only: [:show, :resume_histories, :resume_history]

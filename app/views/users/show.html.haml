@@ -23,10 +23,7 @@
             %tr
               %td.column_name
                 Screen Name
-              %td
-                %ruby
-                  %rb= @user.screen_name
-                  %rt= @user.screen_name_kana
+              %td= user_name_tag(@user)
             %tr
               %td.column_name
                 Email
