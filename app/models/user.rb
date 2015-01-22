@@ -40,4 +40,12 @@ class User < ActiveRecord::Base
   def detach(tag)
     user_taggings.find_by(user_tag_id: tag).try(:destroy)
   end
+
+  def active?
+    self.suspend_reason == SUSPEND_REASON[:active]
+  end
+
+  def suspended?
+    active?.!
+  end
 end

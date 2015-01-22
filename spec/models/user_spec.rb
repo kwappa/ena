@@ -190,6 +190,15 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#active? and #suspended?' do
+    let!(:active_user)       { create(:user) }
+    let!(:suspended_user)    { create(:user, suspend_reason: 1) }
+    specify { expect(active_user).to be_active }
+    specify { expect(suspended_user).to_not be_active }
+    specify { expect(active_user).to_not be_suspended }
+    specify { expect(suspended_user).to be_suspended }
+  end
+
   describe 'tag operation' do
     let(:user) { create(:user) }
     let(:keyword) { 'a keyword' }
