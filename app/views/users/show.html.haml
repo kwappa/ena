@@ -1,6 +1,9 @@
 %div.content.pure-u-1.pure-u-md-3-4
   %div
     %div.posts
+
+      = render 'suspended', user: @user if @user.suspended?
+
       %h1.content-subhead
       %section.post
         %header.post-header
@@ -20,10 +23,7 @@
             %tr
               %td.column_name
                 Screen Name
-              %td
-                %ruby
-                  %rb= @user.screen_name
-                  %rt= @user.screen_name_kana
+              %td= user_name_tag(@user)
             %tr
               %td.column_name
                 Email

@@ -169,6 +169,45 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'scope about suspension' do
+    let!(:active_user)       { create(:user) }
+    let!(:suspended_user)    { create(:user, suspend_reason: 1) }
+    let!(:other_active_user) { create(:user) }
+    let!(:resigned_user)     { create(:user, suspend_reason: 2) }
+
+    describe '.active' do
+      subject(:users) { User.active.all }
+      it 'returns only active users' do
+        expect(subject).to match_array [active_user, other_active_user]
+      end
+    end
+
+    describe '.suspended' do
+      subject(:users) { User.suspended.all }
+      it 'returns only suspended users' do
+        expect(subject).to match_array [suspended_user, resigned_user]
+      end
+    end
+  end
+
+  describe '#active? and #suspended?' do
+    let!(:active_user)       { create(:user) }
+    let!(:suspended_user)    { create(:user, suspend_reason: 1) }
+    specify { expect(active_user).to be_active }
+    specify { expect(suspended_user).to_not be_active }
+    specify { expect(active_user).to_not be_suspended }
+    specify { expect(suspended_user).to be_suspended }
+  end
+
+  describe '#suspended_status_message' do
+    let!(:active_user)    { create(:user) }
+    let!(:suspended_user) { create(:user, suspend_reason: 1) }
+    let!(:resigned_user)  { create(:user, suspend_reason: 2) }
+    specify { expect(active_user.suspend_status_message).to eq    'Active' }
+    specify { expect(suspended_user.suspend_status_message).to eq 'Suspension' }
+    specify { expect(resigned_user.suspend_status_message).to eq  'Resignation' }
+  end
+
   describe 'tag operation' do
     let(:user) { create(:user) }
     let(:keyword) { 'a keyword' }

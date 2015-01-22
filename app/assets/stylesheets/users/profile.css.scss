@@ -265,6 +265,9 @@ a.edit_link {
 
 img.gravatar_icon {
     @include border-radius(4px);
+    &.user_list {
+        height: 32px;
+    }
 }
 
 .code-frame pre {
