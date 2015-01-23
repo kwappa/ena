@@ -1,0 +1,9 @@
+= form_for @team do |f|
+  .field
+    = f.text_field :name
+  .field
+    = f.text_area :description
+  = button_tag class: 'pure-button' do
+    %i.fa.fa-save.fa-lg
+      Save
+
