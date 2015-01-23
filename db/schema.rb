@@ -11,7 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150122061432) do
+ActiveRecord::Schema.define(version: 20150123132418) do
+
+  create_table "assignments", force: :cascade do |t|
+    t.integer  "team_id",      null: false
+    t.integer  "user_id",      null: false
+    t.integer  "role_id",      null: false
+    t.date     "assigned_on",  null: false
+    t.date     "withdrawn_on"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "assignments", ["assigned_on"], name: "index_assignments_on_assigned_on"
+  add_index "assignments", ["team_id"], name: "index_assignments_on_team_id"
+  add_index "assignments", ["user_id"], name: "index_assignments_on_user_id"
+  add_index "assignments", ["withdrawn_on"], name: "index_assignments_on_withdrawn_on"
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name",         null: false
+    t.text     "description"
+    t.date     "organized_on"
+    t.date     "disbanded_on"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "teams", ["disbanded_on"], name: "index_teams_on_disbanded_on"
+  add_index "teams", ["organized_on"], name: "index_teams_on_organized_on"
+  add_index "teams", ["updated_at"], name: "index_teams_on_updated_at"
 
   create_table "user_resume_histories", force: :cascade do |t|
     t.integer  "user_id",                 null: false
