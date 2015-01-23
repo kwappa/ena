@@ -1,4 +1,6 @@
 class TeamsController < ApplicationController
+  before_action :prepare_team, only: [:show, :edit, :update, :destroy]
+
   def index
   end
 
@@ -17,7 +19,24 @@ class TeamsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+  end
+
+  private
+
   def team_params
     params.require(:team).permit(:name, :description, :disbanded_on)
+  end
+
+  def prepare_team
+    begin
+      @team = Team.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = 'Team does not exist.'
+      redirect_to teams_path and return
+    end
   end
 end

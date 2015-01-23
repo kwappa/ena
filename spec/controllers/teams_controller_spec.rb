@@ -33,4 +33,27 @@ RSpec.describe TeamsController, type: :controller do
       end
     end
   end
+
+  describe '#edit' do
+    let(:team_id)  { 0 }
+    let(:team)     { create(:team) }
+    subject(:edit) { get :edit, id: team_id }
+
+    context 'when team does not exist' do
+      before { edit }
+      it 'stores error message and redirect' do
+        expect(flash[:error]).to be_present
+        expect(response).to redirect_to teams_path
+      end
+    end
+
+    context 'when team exist' do
+      let!(:team_id) { team.id }
+      before { edit }
+      it 'shows edit page' do
+        expect(response).to be_ok
+        expect(assigns[:team]).to eq team
+      end
+    end
+  end
 end
