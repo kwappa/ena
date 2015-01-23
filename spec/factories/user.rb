@@ -13,12 +13,12 @@ FactoryGirl.define do
   sequence :name do |n|
     chars = ('a'..'z').to_a
     idx = n % chars.size
-    "#{chars[idx].upcase}#{chars.sample(rand(9) + 2).join}"
+    "#{chars[idx].upcase}#{chars.sample(rand(9) + 2).join}#{n}"
   end
 
   sequence :nick do |n|
     chars = ('a'..'z').to_a
     idx = n % chars.size
-    "#{chars[idx].upcase}#{chars.sample(rand(9) + 2).join}"
+    "#{chars[idx].upcase}#{chars.sample(rand(9) + 2).join}#{n}"
   end
 end
