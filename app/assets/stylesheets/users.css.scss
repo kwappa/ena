@@ -1,0 +1,90 @@
+@import 'application';
+@import 'common';
+@import 'layout';
+
+.sidebar {
+    background: rgb(61, 79, 93);
+    color: #fff;
+}
+
+table.profile {
+    td.column_name {
+        font-weight: bold;
+        text-align: right;
+    }
+    &.edit_form {
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 320px;
+        }
+    }
+}
+
+.edit_histories {
+    @include clearfix;
+    width: 100%;
+
+    .edit_history_list {
+        float: left;
+        width: 25%;
+        table {
+            width: 90%;
+            margin: auto;
+        }
+    }
+
+    .edit_history_detail {
+        float: left;
+        width: 75%;
+        .edit_history_detail_container {
+            padding-left: 16px;
+            height: 25em;
+            overflow-y: auto;
+        }
+    }
+}
+
+form.resume_form {
+    textarea {
+        width: 80%;
+        height: 24em;
+        font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+        line-height: 1.2em;
+    }
+
+    button {
+        margin-top: 16px;
+    }
+}
+
+.user_tags {
+    @include clearfix;
+    margin: 16px 4px;
+
+    .user_tag {
+        @include border-radius(16px);
+        float: left;
+        background-color: whitesmoke;
+        border: 1px solid silver;
+        padding: 2px 8px;
+        margin: 8px 4px;
+    }
+
+    form.tag_detach_form {
+        display: inline;
+        button {
+            position: relative;
+            top: -0.5em;
+            border: none;
+            background: none;
+            font-size: 50%;
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+
+img.gravatar_icon {
+    &.user_list {
+        height: 32px;
+    }
+}
