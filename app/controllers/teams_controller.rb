@@ -9,20 +9,15 @@ class TeamsController < ApplicationController
   end
 
   def create
-    team = Team.new(team_params)
-    if team.valid?
-      team.save!
-      redirect_to teams_path
-    else
-      flash[:error] = team.errors.map { |k, v| "#{k} #{v}" }.join("\n")
-      redirect_to new_team_path
-    end
+    @team = Team.new(team_params)
+    validate_and_save_team
   end
 
   def edit
   end
 
   def update
+    validate_and_save_team
   end
 
   private
@@ -37,6 +32,20 @@ class TeamsController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       flash[:error] = 'Team does not exist.'
       redirect_to teams_path and return
+    end
+  end
+
+  def validate_and_save_team
+    if @team.valid?
+      @team.save!
+      redirect_to team_path(@team)
+    else
+      flash[:error] = @team.errors.map { |k, v| "#{k} #{v}" }.join("\n")
+      if @team.persisted?
+        redirect_to edit_team_path(@team)
+      else
+        redirect_to new_team_path
+      end
     end
   end
 end

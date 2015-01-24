@@ -28,8 +28,9 @@ RSpec.describe TeamsController, type: :controller do
       it 'creates new team' do
         expect { subject }.to change { Team.count }.from(0).to(1)
       end
+
       it 'redirect to #index' do
-        expect(subject).to redirect_to teams_path
+        expect(subject).to redirect_to team_path(Team.last)
       end
     end
   end
