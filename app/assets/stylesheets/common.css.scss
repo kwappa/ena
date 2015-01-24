@@ -70,3 +70,15 @@ img.gravatar_icon {
     white-space: pre-wrap;
     font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
 }
+
+.detail_table {
+    td.column_name {
+        font-weight: bold;
+        text-align: right;
+    }
+}
+
+h2.content-head {
+    border-top: 1px solid #eeeeee;
+    padding-top: 12px;
+}

@@ -11,6 +11,9 @@ class TeamsController < ApplicationController
     @team = Team.new
   end
 
+  def show
+  end
+
   def create
     @team = Team.new(team_params)
     validate_and_save_team

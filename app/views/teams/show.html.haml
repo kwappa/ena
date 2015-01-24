@@ -1,0 +1,35 @@
+%div.content.pure-u-1.pure-u-md-3-4
+  %div
+    %div.posts
+      %h1
+        %i.fa.fa-cube.fa-lg
+        = @team.name
+      %section.post
+        %header.post-header
+          %h2.content-head
+            %i.fa.fa-info-circle.fa-lg
+            Info
+        %div.post-description
+          %table.pure-table.pure-table-bordered.detail_table
+            %tr
+              %td.column_name Name
+              %td= @team.name
+            %tr
+              %td.column_name Active Period
+              %td= render 'active_period', team: @team
+            %tr
+              %td.column_name Last Update
+              %td
+                %i.fa.fa-clock-o.fa-lg
+                = @team.updated_at
+
+        %header.post-header
+          %h2.content-head
+            %i.fa.fa-group.fa-lg
+            Members
+        %header.post-header
+          %h2.content-head
+            %i.fa.fa-file-o.fa-lg
+            Description
+          %div
+            = @team.render(:description).html_safe
