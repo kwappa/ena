@@ -1,6 +1,4 @@
-= content_for :header do
-  %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
-  = stylesheet_link_tag 'teams'
+= render 'shared/header', css_file: 'teams'
 
 = content_for :content do
   #layout.pure-g
