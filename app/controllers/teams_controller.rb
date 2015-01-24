@@ -1,7 +1,10 @@
 class TeamsController < ApplicationController
+  TEAMS_PER_PAGE = 10
+
   before_action :prepare_team, only: [:show, :edit, :update, :destroy]
 
   def index
+    @teams = Team.page(params[:page]).per(TEAMS_PER_PAGE)
   end
 
   def new

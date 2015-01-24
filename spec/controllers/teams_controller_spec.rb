@@ -4,13 +4,21 @@ RSpec.describe TeamsController, type: :controller do
   describe '#index' do
     subject(:index) { get :index }
 
-    context 'when guest user' do
-      specify { expect(index).to be_ok }
+    describe 'access control' do
+      context 'when guest user' do
+        specify { expect(index).to be_ok }
+      end
+
+      context 'when login user' do
+        before { sign_in create(:user) }
+        specify { expect(index).to be_ok }
+      end
     end
 
-    context 'when login user' do
-      before { sign_in create(:user) }
-      specify { expect(index).to be_ok }
+    describe 'list of teams' do
+      let!(:teams) { [create(:team), create(:team)] }
+      before { index }
+      specify { expect(assigns[:teams]).to match_array teams }
     end
   end
 
