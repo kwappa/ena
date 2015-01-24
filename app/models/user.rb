@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include Authority::User
+
   NAME_AND_NICK_VALIDATION_CONDITIONS = {
     presence: true,
     format: /\A[a-zA-Z0-9_\-]+\Z/,
