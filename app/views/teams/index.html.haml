@@ -5,8 +5,27 @@
       %section.post
         %header.post-header
           %h2
-            %i.fa.fa-files-o.fa-lg
+            %i.fa.fa-cubes.fa-lg
             Teams
         %div.post-description
-          teams#index
-
+          %table.team_list.pure-table
+            %thead
+              %tr
+                %th Name
+                %th Description
+                %th Histroy
+            %tbody
+            - @teams.each_with_index do |team, idx|
+              %tr{ class: idx.odd? ? 'pure-table-odd' : '' }
+                %td
+                  = link_to team_path(team) do
+                    %i.fa.fa-cube
+                    = team.name
+                %td= team.render(:description).html_safe
+                %td
+                  %i{ class: "fa fa-#{team.active? ? 'link' : 'unlink'} fa-lg" }
+                  #{team.organized_on} 〜 #{team.disbanded_on}
+                  %br
+                  %i.fa.fa-clock-o.fa-lg
+                  = team.updated_at
+  = paginate @teams
