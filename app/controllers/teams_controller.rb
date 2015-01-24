@@ -17,6 +17,7 @@ class TeamsController < ApplicationController
   end
 
   def update
+    @team.assign_attributes(team_params)
     validate_and_save_team
   end
 
