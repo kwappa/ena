@@ -26,11 +26,25 @@ RSpec.describe Authority do
       specify { expect { authority_id }.to raise_error ArgumentError }
     end
   end
+
+  describe '.name' do
+    subject(:authority_name) { described_class.name(authority_id) }
+    context 'when direction' do
+      let(:authority_id) { 3 }
+      specify { expect(authority_name).to eq :direction }
+    end
+
+    context 'when invalid id' do
+      let(:authority_id) { 999999 }
+      specify { expect { authority_name }.to raise_error ArgumentError }
+    end
+  end
 end
 
 RSpec.describe User, type: :model do
+  let(:user) { create(:user) }
+
   describe '#authorize' do
-    let(:user) { create(:user) }
     subject(:authorize) { user.authorize(authority_name) }
 
     context 'with valid authority name' do
@@ -43,6 +57,18 @@ RSpec.describe User, type: :model do
       let(:authority_name) { 'INVALID_AUTHORITY_NAME' }
       let(:authority_id)   { 4 }
       specify { expect { authorize }.to raise_error ArgumentError }
+    end
+  end
+
+  describe '#authority' do
+    subject(:authority) { user.authority }
+    context 'when working' do
+      specify { expect(authority).to eq :working }
+    end
+
+    context 'whern administration' do
+      before { user.authorize(:administration) }
+      specify { expect(authority).to eq :administration }
     end
   end
 end
