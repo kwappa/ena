@@ -4,6 +4,10 @@
       %h1
         %i.fa.fa-cubes.fa-lg
         Teams
+        - if permitted_user?(:create_team)
+          = link_to new_team_path, class: 'edit_link' do
+            %i.fa.fa-plus-square.fa-lg
+
       %section.post
         %div.post-description
           %table.team_list.pure-table
