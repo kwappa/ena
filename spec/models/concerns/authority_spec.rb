@@ -39,6 +39,23 @@ RSpec.describe Authority do
       specify { expect { authority_name }.to raise_error ArgumentError }
     end
   end
+
+  describe '.permitted?' do
+    let(:action) { :create_team }
+    subject(:permitted?) { described_class.permitted?(action, authority) }
+
+    context 'action :create_team' do
+      context 'when reader' do
+        let(:authority) { :leading }
+        specify { expect(permitted?).to be false }
+      end
+
+      context 'when director' do
+        let(:authority) { :direction }
+        specify { expect(permitted?).to be true }
+      end
+    end
+  end
 end
 
 RSpec.describe User, type: :model do
@@ -69,6 +86,23 @@ RSpec.describe User, type: :model do
     context 'whern administration' do
       before { user.authorize(:administration) }
       specify { expect(authority).to eq :administration }
+    end
+  end
+
+  describe '#permitted?' do
+    subject(:permitted?) { user.permitted?(action) }
+    context 'action :create_team' do
+      let(:action) { :create_team }
+
+      context 'when manager' do
+        let(:user) { create(:user, authority_id: Authority.id(:management)) }
+        specify { expect(permitted?).to be false }
+      end
+
+      context 'when administrator' do
+        let(:user) { create(:user, authority_id: Authority.id(:administration)) }
+        specify { expect(permitted?).to be true }
+      end
     end
   end
 end

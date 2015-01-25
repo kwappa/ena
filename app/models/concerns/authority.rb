@@ -7,12 +7,20 @@ module Authority
     :administration,            # 4 : for administrator
   ]
 
+  PERMISSIONS = {
+    create_team: [:administration, :direction],
+  }
+
   def self.id(name)
     NAMES.index(name) or raise(ArgumentError.new("authority name [#{name}] does not found."))
   end
 
   def self.name(id)
     NAMES.fetch(id, nil) or raise(ArgumentError.new("authority id [#{id}] does not found."))
+  end
+
+  def self.permitted?(action, authority)
+    PERMISSIONS.fetch(action).include?(authority)
   end
 
   module User
@@ -22,6 +30,10 @@ module Authority
 
     def authority
       Authority.name(self.authority_id)
+    end
+
+    def permitted?(action)
+      Authority.permitted?(action, self.authority)
     end
   end
 end
