@@ -25,8 +25,4 @@ module ApplicationHelper
       content_tag(:rb, user.screen_name).html_safe << content_tag(:rt, user.screen_name_kana)
     end
   end
-
-  def permitted_user?(action)
-    user_signed_in? && current_user.permitted?(action)
-  end
 end
