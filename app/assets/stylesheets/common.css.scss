@@ -8,6 +8,11 @@
     }
 }
 
+@mixin textarea-font {
+    font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+    line-height: 1.2em;
+}
+
 div.common-linkbar {
     position: absolute;
     bottom: 0;

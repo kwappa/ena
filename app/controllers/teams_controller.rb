@@ -47,7 +47,14 @@ class TeamsController < ApplicationController
 
   def validate_and_save_team
     if @team.valid?
+      flash_msg = if @team.persisted?
+                    "Team '#{@team.name}' is updated."
+                  else
+                    "Team '#{@team.name}' is created"
+                  end
+
       @team.save!
+      flash[:notice] = flash_msg
       redirect_to team_path(@team)
     else
       flash[:error] = @team.errors.map { |k, v| "#{k} #{v}" }.join("\n")

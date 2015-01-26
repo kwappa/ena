@@ -41,10 +41,9 @@ table.profile {
 
 form.resume_form {
     textarea {
+        @include textarea-font;
         width: 80%;
         height: 24em;
-        font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
-        line-height: 1.2em;
     }
 
     button {
