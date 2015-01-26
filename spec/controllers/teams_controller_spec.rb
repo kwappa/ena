@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe TeamsController, type: :controller do
+  let(:user) { create :user }
+
   describe '#index' do
     subject(:index) { get :index }
 
@@ -24,21 +26,25 @@ RSpec.describe TeamsController, type: :controller do
 
   describe '#create' do
     let(:team_params) { { name: '', description: '' } }
-    subject(:create) { post :create, team: team_params }
+    subject(:create_team) { post :create, team: team_params }
+    before do
+      user.authorize(:administration)
+      sign_in user
+    end
 
     context 'when name is blank' do
-      specify { expect(create).to redirect_to new_team_path }
+      specify { expect(create_team).to redirect_to new_team_path }
     end
 
     context 'when name is specified' do
       let(:team_params) { { name: 'new team' } }
 
       it 'creates new team' do
-        expect { subject }.to change { Team.count }.from(0).to(1)
+        expect { create_team }.to change { Team.count }.from(0).to(1)
       end
 
       it 'redirect to #index' do
-        expect(subject).to redirect_to team_path(Team.last)
+        expect(create_team).to redirect_to team_path(Team.last)
       end
     end
   end
@@ -101,6 +107,28 @@ RSpec.describe TeamsController, type: :controller do
           expect(response).to redirect_to edit_team_path(team)
         end
       end
+    end
+  end
+
+  describe '#new' do
+    subject(:new) { get :new }
+
+    context 'when guest user' do
+      specify { expect(new).to redirect_to teams_path }
+    end
+
+    context 'when not-permitted user' do
+      before { sign_in user }
+      specify { expect(new).to redirect_to teams_path }
+    end
+
+    context 'when permitted user' do
+      before do
+        user.authorize(:direction)
+        sign_in user
+      end
+
+      specify { expect(new).to be_ok }
     end
   end
 end
