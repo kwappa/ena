@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
   TEAMS_PER_PAGE = 10
 
   before_action :prepare_team, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_create_team, only: [:new, :create]
+  before_action :authorize_team_create, only: [:new, :create]
 
   def index
     @teams = Team.page(params[:page]).per(TEAMS_PER_PAGE)
@@ -66,8 +66,8 @@ class TeamsController < ApplicationController
     end
   end
 
-  def authorize_create_team
-    unless permitted_user?(:create_team)
+  def authorize_team_create
+    unless permitted_user?(:team_create)
       flash[:warning] = "you don't have permission to create new team."
       redirect_to teams_path
     end

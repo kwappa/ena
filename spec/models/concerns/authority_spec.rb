@@ -41,10 +41,10 @@ RSpec.describe Authority do
   end
 
   describe '.permitted?' do
-    let(:action) { :create_team }
+    let(:action) { :team_create }
     subject(:permitted?) { described_class.permitted?(action, authority) }
 
-    context 'action :create_team' do
+    context 'action :team_create' do
       context 'when reader' do
         let(:authority) { :leading }
         specify { expect(permitted?).to be false }
@@ -91,8 +91,8 @@ RSpec.describe User, type: :model do
 
   describe '#permitted?' do
     subject(:permitted?) { user.permitted?(action) }
-    context 'action :create_team' do
-      let(:action) { :create_team }
+    context 'action :team_create' do
+      let(:action) { :team_create }
 
       context 'when manager' do
         let(:user) { create(:user, authority_id: Authority.id(:management)) }
