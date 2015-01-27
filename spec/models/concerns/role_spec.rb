@@ -39,3 +39,17 @@ RSpec.describe Role do
     end
   end
 end
+
+RSpec.describe Team, type: :model do
+  describe '#assignable?' do
+    let!(:team) { create :team }
+    let!(:user) { create :user }
+    subject(:assignable?) { team.assignable?(user, role) }
+
+    context 'when administrator' do
+      let(:role) { :director }
+      before  { user.authorize(:administration) }
+      specify { expect(assignable?).to be true }
+    end
+  end
+end

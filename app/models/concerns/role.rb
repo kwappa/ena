@@ -13,4 +13,10 @@ module Role
   def self.name(id)
     NAMES.fetch(id, nil) or raise(ArgumentError.new("role id [#{id}] does not found."))
   end
+
+  module Team
+    def assignable?(operator, role)
+      return true if operator.permitted?(:team_assign)
+    end
+  end
 end
