@@ -18,5 +18,9 @@ module Role
     def assignable?(operator, role)
       return true if operator.permitted?(:team_assign)
     end
+
+    def assign_user(user, role, assigned_on = Date.today)
+      Assignment.create!(team_id: self.id, user_id: user.id, role_id: Role.id(role), assigned_on: assigned_on)
+    end
   end
 end

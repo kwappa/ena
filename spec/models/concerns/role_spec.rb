@@ -52,4 +52,18 @@ RSpec.describe Team, type: :model do
       specify { expect(assignable?).to be true }
     end
   end
+
+  describe '#assign_user' do
+    let!(:team) { create :team }
+    let!(:user) { create :user }
+    let(:role)  { :member }
+    subject(:assign) { team.assign_user(user, role) }
+    it 'assigns user to team' do
+      expect(user.teams).to be_empty
+      expect(team.users).to be_empty
+      assign
+      expect(user.teams).to be_include(team)
+      expect(team.users).to be_include(user)
+    end
+  end
 end
