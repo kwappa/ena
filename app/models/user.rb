@@ -31,6 +31,8 @@ class User < ActiveRecord::Base
   has_many :user_taggings
   has_many :tags, through: :user_taggings, class_name: 'UserTag'
   has_many :resume_histories, class_name: 'UserResumeHistory'
+  has_many :assignments
+  has_many :teams, through: :assignments
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable
