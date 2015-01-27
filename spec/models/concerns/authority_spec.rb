@@ -104,5 +104,19 @@ RSpec.describe User, type: :model do
         specify { expect(permitted?).to be true }
       end
     end
+
+    context 'action :team_assign' do
+      let(:action) { :team_assign }
+
+      context 'when director' do
+        let(:user) { create(:user, authority_id: Authority.id(:direction)) }
+        specify { expect(permitted?).to be false }
+      end
+
+      context 'when administrator' do
+        let(:user) { create(:user, authority_id: Authority.id(:administration)) }
+        specify { expect(permitted?).to be true }
+      end
+    end
   end
 end
