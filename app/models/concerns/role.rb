@@ -39,6 +39,10 @@ module Role
     def assignable?(operator, role)
       return true if operator.permitted?(:team_assign)
       return false unless self.users.include?(operator)
+      operator.roles(self).each do |operator_role|
+        return true if ::Role.permissions(:team_assign, operator_role).include?(role)
+      end
+      false
     end
 
     def assign_user(user, role, assigned_on = Date.today)

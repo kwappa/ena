@@ -67,6 +67,20 @@ RSpec.describe Team, type: :model do
     let!(:user) { create :user }
     subject(:assignable?) { team.assignable?(user, role) }
 
+    shared_examples 'assignable to team' do |operator_role, target_role|
+      before { team.assign_user(user, operator_role) }
+      it "#{operator_role} can assign #{target_role}" do
+        expect(team.assignable?(user, target_role)).to be true
+      end
+    end
+
+    shared_examples 'does not assignable to team' do |operator_role, target_role|
+      before { team.assign_user(user, operator_role) }
+      it "#{operator_role} can not assign #{target_role}" do
+        expect(team.assignable?(user, target_role)).to be false
+      end
+    end
+
     context 'when administrator' do
       let(:role) { :director }
       before  { user.authorize(:administration) }
@@ -77,6 +91,35 @@ RSpec.describe Team, type: :model do
       let(:role) { :member }
       before { user.authorize(:direction) }
       specify { expect(assignable?).to be false }
+    end
+
+    context 'when assigned as a :director' do
+      [:manager, :leader, :member].each do |target_role|
+        include_examples 'assignable to team', :director, target_role
+      end
+      include_examples 'does not assignable to team', :director, :director
+    end
+
+    context 'when assigned as a :manager' do
+      [:leader, :member].each do |target_role|
+        include_examples 'assignable to team', :manager, target_role
+      end
+      [:manager, :director].each do |target_role|
+        include_examples 'does not assignable to team', :manager, target_role
+      end
+    end
+
+    context 'when assigned as a :leader' do
+      include_examples 'assignable to team', :leader, :member
+      [:manager, :director, :manager].each do |target_role|
+        include_examples 'does not assignable to team', :leader, target_role
+      end
+    end
+
+    context 'when assigned as a :member' do
+      [:manager, :director, :manager, :member].each do |target_role|
+        include_examples 'does not assignable to team', :member, target_role
+      end
     end
   end
 
