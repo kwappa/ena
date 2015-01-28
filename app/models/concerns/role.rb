@@ -6,12 +6,27 @@ module Role
     :director,                  # 3
   ]
 
+  PERMISSIONS = {
+    team_assign: {
+      director: [:member, :leader, :manager],
+      manager:  [:member, :leader],
+      leader:   [:member],
+      member:   [],
+    },
+  }
+
   def self.id(name)
     NAMES.index(name) or raise(ArgumentError.new("role name [#{name}] does not found."))
   end
 
   def self.name(id)
     NAMES.fetch(id, nil) or raise(ArgumentError.new("role id [#{id}] does not found."))
+  end
+
+  def self.permissions(action, role)
+    PERMISSIONS.fetch(action).fetch(role)
+  rescue
+    raise ArgumentError.new("action #{action} or role #{role} does not found.")
   end
 
   module Team

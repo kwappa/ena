@@ -38,6 +38,27 @@ RSpec.describe Role do
       specify { expect { role_name }.to raise_error ArgumentError }
     end
   end
+
+  describe '.permissions' do
+    subject(:permissions) { described_class.permissions(action, role) }
+    context 'when action is inavlid' do
+      let(:action) { 'INVALID_ACTION' }
+      let(:role)   { :member }
+      specify { expect { permissions }.to raise_error ArgumentError }
+    end
+
+    context 'when action is valid but role is invalid' do
+      let(:action) { :team_assign }
+      let(:role)   { 'INVALID_ROLE' }
+      specify { expect { permissions }.to raise_error ArgumentError }
+    end
+
+    context 'when action and role are valid' do
+      let(:action) { :team_assign }
+      let(:role)   { :director }
+      specify { expect(permissions).to match_array [:member, :leader, :manager] }
+    end
+  end
 end
 
 RSpec.describe Team, type: :model do
