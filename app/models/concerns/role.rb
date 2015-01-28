@@ -29,6 +29,12 @@ module Role
     raise ArgumentError.new("action #{action} or role #{role} does not found.")
   end
 
+  module User
+    def roles(team)
+      self.assignments.where(team_id: team.id).pluck(:role_id).uniq.map { |role_id| Role.name(role_id) }
+    end
+  end
+
   module Team
     def assignable?(operator, role)
       return true if operator.permitted?(:team_assign)
@@ -36,7 +42,7 @@ module Role
     end
 
     def assign_user(user, role, assigned_on = Date.today)
-      Assignment.create!(team_id: self.id, user_id: user.id, role_id: Role.id(role), assigned_on: assigned_on)
+      ::Assignment.create!(team_id: self.id, user_id: user.id, role_id: Role.id(role), assigned_on: assigned_on)
     end
   end
 end

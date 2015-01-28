@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include Authority::User
+  include Role::User
 
   NAME_AND_NICK_VALIDATION_CONDITIONS = {
     presence: true,

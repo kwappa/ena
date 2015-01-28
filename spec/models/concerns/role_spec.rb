@@ -95,3 +95,36 @@ RSpec.describe Team, type: :model do
     end
   end
 end
+
+RSpec.describe User, type: :model do
+  let!(:user) { create :user }
+
+  describe '#roles' do
+    let!(:team) { create :team }
+    subject(:roles) { user.roles(team) }
+
+    context 'without assignments to specified team' do
+      let!(:another_team) { create :team }
+      before { another_team.assign_user(user, :member) }
+      it 'retruns no roles' do
+        expect(roles).to match_array []
+        expect(Assignment.where(user_id: user.id, team_id: another_team.id)).to be_present
+      end
+    end
+
+    context 'with assignments' do
+      context 'assigned only as a :member' do
+        before { team.assign_user(user, :member) }
+        specify { expect(roles).to match_array [:member] }
+      end
+
+      context 'assigned as :leader and :manager' do
+        before do
+          team.assign_user(user, :leader)
+          team.assign_user(user, :manager)
+        end
+        specify { expect(roles).to match_array [:leader, :manager] }
+      end
+    end
+  end
+end
