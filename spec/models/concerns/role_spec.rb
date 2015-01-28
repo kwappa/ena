@@ -51,6 +51,12 @@ RSpec.describe Team, type: :model do
       before  { user.authorize(:administration) }
       specify { expect(assignable?).to be true }
     end
+
+    context 'when director but not a member' do
+      let(:role) { :member }
+      before { user.authorize(:direction) }
+      specify { expect(assignable?).to be false }
+    end
   end
 
   describe '#assign_user' do
@@ -58,6 +64,7 @@ RSpec.describe Team, type: :model do
     let!(:user) { create :user }
     let(:role)  { :member }
     subject(:assign) { team.assign_user(user, role) }
+
     it 'assigns user to team' do
       expect(user.teams).to be_empty
       expect(team.users).to be_empty
