@@ -137,6 +137,33 @@ RSpec.describe Team, type: :model do
       expect(team.users).to be_include(user)
     end
   end
+
+  describe '#withdraw_user' do
+    let!(:team) { create :team }
+    let!(:user) { create :user }
+    let(:role)  { :member }
+    subject(:withdraw) { team.withdraw_user(user, role) }
+
+    context 'when user does not assigned to team' do
+      specify { expect { subject }.to raise_error ActiveRecord::RecordNotFound }
+    end
+
+    context 'when user assigned to team' do
+      let(:assign) do
+        Assignment.where(team_id: team.id, user_id: user.id, role_id: ::Role.id(role)).first
+      end
+
+      before  { Timecop.freeze(Time.local(2015, 1, 30)) }
+
+      it 'withdraw user from team' do
+        team.assign_user(user, role)
+        expect(assign.withdrawn_on).to be_nil
+        withdraw
+        assign.reload
+        expect(assign.withdrawn_on).to eq Date.today
+      end
+    end
+  end
 end
 
 RSpec.describe User, type: :model do

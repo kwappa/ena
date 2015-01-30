@@ -48,5 +48,11 @@ module Role
     def assign_user(user, role, assigned_on = Date.today)
       ::Assignment.create!(team_id: self.id, user_id: user.id, role_id: Role.id(role), assigned_on: assigned_on)
     end
+
+    def withdraw_user(user, role, withdrawn_on = Date.today)
+      assign = ::Assignment.where(team_id: self.id, user_id: user.id, role_id: Role.id(role)).active.first
+      raise ActiveRecord::RecordNotFound unless assign.present?
+      assign.update(withdrawn_on: withdrawn_on)
+    end
   end
 end
