@@ -14,4 +14,8 @@ class Team < ActiveRecord::Base
   def disbanded?
     self.active?.!
   end
+
+  def active_users
+    users.merge(Assignment.active)
+  end
 end
