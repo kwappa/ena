@@ -129,12 +129,52 @@ RSpec.describe Team, type: :model do
     let(:role)  { :member }
     subject(:assign) { team.assign_user(user, role) }
 
-    it 'assigns user to team' do
-      expect(user.teams).to be_empty
-      expect(team.users).to be_empty
-      assign
-      expect(user.teams).to be_include(team)
-      expect(team.users).to be_include(user)
+    context 'first assign' do
+      it 'assigns user to team' do
+        expect(user.teams).to be_empty
+        expect(team.users).to be_empty
+        assign
+        expect(user.teams).to be_include(team)
+        expect(team.users).to be_include(user)
+      end
+    end
+
+    context 'duplicate assign' do
+      let(:assignment) { Assignment.where(user_id: user.id, team_id: team.id, role_id: Role.id(role)) }
+      before { team.assign_user(user, role) }
+
+      context 'when active and same role' do
+        it 'assigns only once' do
+          expect(assignment.count).to eq 1
+          expect(team.members[role]).to be_include(user)
+          assign
+          expect(assignment.count).to eq 1
+        end
+      end
+
+      context 'when withdrawn and same role' do
+        before { team.withdraw_user(user, role) }
+
+        it 'assigns again' do
+          expect(team.members[role]).to_not be_include(user)
+          assign
+          expect(assignment.count).to eq 2
+          expect(team.members[role]).to be_include(user)
+        end
+      end
+
+      context 'when assigned as an another role' do
+        let(:another_role) { :manager }
+        subject(:another_assign) { team.assign_user(user, another_role) }
+
+        it 'assigns as an another role' do
+          expect(team.members[role]).to be_include(user)
+          expect(team.members[another_role]).to_not be_include(user)
+          another_assign
+          expect(team.members[role]).to be_include(user)
+          expect(team.members[another_role]).to be_include(user)
+        end
+      end
     end
   end
 

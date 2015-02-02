@@ -50,7 +50,13 @@ module Role
     end
 
     def assign_user(user, role, assigned_on = Date.today)
-      ::Assignment.create!(team_id: self.id, user_id: user.id, role_id: Role.id(role), assigned_on: assigned_on)
+      assign = ::Assignment.active.find_or_initialize_by(team_id: self.id, user_id: user.id, role_id: Role.id(role))
+      if assign.new_record?
+        assign.assigned_on = assigned_on
+        assign.save!
+      end
+
+      assign
     end
 
     def withdraw_user(user, role, withdrawn_on = Date.today)
