@@ -49,7 +49,7 @@ module Role
       false
     end
 
-    def assign_user(user, role, assigned_on = Date.today)
+    def assign_member(user, role, assigned_on = Date.today)
       assign = ::Assignment.active.find_or_initialize_by(team_id: self.id, user_id: user.id, role_id: Role.id(role))
       if assign.new_record?
         assign.assigned_on = assigned_on
@@ -59,7 +59,7 @@ module Role
       assign
     end
 
-    def withdraw_user(user, role, withdrawn_on = Date.today)
+    def withdraw_member(user, role, withdrawn_on = Date.today)
       assign = ::Assignment.where(team_id: self.id, user_id: user.id, role_id: Role.id(role)).active.first
       raise ActiveRecord::RecordNotFound unless assign.present?
       assign.update(withdrawn_on: withdrawn_on)

@@ -10,10 +10,10 @@ RSpec.describe Team, type: :model do
     subject(:active_users) { team.active_users }
 
     before do
-      team.assign_user(active_user, role)
-      team.assign_user(withdrawn_user, role, Date.yesterday)
-      team.withdraw_user(withdrawn_user, role)
-      team.assign_user(future_user, role, Date.tomorrow)
+      team.assign_member(active_user, role)
+      team.assign_member(withdrawn_user, role, Date.yesterday)
+      team.withdraw_member(withdrawn_user, role)
+      team.assign_member(future_user, role, Date.tomorrow)
     end
 
     it 'returns only active users' do

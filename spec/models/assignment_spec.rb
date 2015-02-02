@@ -9,12 +9,12 @@ RSpec.describe Assignment, type: :model do
     before do
       Timecop.freeze(Time.local(2015, 1, 30))
       # active
-      teams[0].assign_user(user, role)
+      teams[0].assign_member(user, role)
       # future assignment
-      teams[1].assign_user(user, role, Date.tomorrow)
+      teams[1].assign_member(user, role, Date.tomorrow)
       # withdrawn assignment
-      teams[2].assign_user(user, role, Date.yesterday)
-      teams[2].withdraw_user(user, role)
+      teams[2].assign_member(user, role, Date.yesterday)
+      teams[2].withdraw_member(user, role)
     end
 
     it 'returns only active assignment' do

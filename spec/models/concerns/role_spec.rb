@@ -68,14 +68,14 @@ RSpec.describe Team, type: :model do
     subject(:assignable?) { team.assignable?(user, role) }
 
     shared_examples 'assignable to team' do |operator_role, target_role|
-      before { team.assign_user(user, operator_role) }
+      before { team.assign_member(user, operator_role) }
       it "#{operator_role} can assign #{target_role}" do
         expect(team.assignable?(user, target_role)).to be true
       end
     end
 
     shared_examples 'does not assignable to team' do |operator_role, target_role|
-      before { team.assign_user(user, operator_role) }
+      before { team.assign_member(user, operator_role) }
       it "#{operator_role} can not assign #{target_role}" do
         expect(team.assignable?(user, target_role)).to be false
       end
@@ -123,11 +123,11 @@ RSpec.describe Team, type: :model do
     end
   end
 
-  describe '#assign_user' do
+  describe '#assign_member' do
     let!(:team) { create :team }
     let!(:user) { create :user }
     let(:role)  { :member }
-    subject(:assign) { team.assign_user(user, role) }
+    subject(:assign) { team.assign_member(user, role) }
 
     context 'first assign' do
       it 'assigns user to team' do
@@ -141,7 +141,7 @@ RSpec.describe Team, type: :model do
 
     context 'duplicate assign' do
       let(:assignment) { Assignment.where(user_id: user.id, team_id: team.id, role_id: Role.id(role)) }
-      before { team.assign_user(user, role) }
+      before { team.assign_member(user, role) }
 
       context 'when active and same role' do
         it 'assigns only once' do
@@ -153,7 +153,7 @@ RSpec.describe Team, type: :model do
       end
 
       context 'when withdrawn and same role' do
-        before { team.withdraw_user(user, role) }
+        before { team.withdraw_member(user, role) }
 
         it 'assigns again' do
           expect(team.members[role]).to_not be_include(user)
@@ -165,7 +165,7 @@ RSpec.describe Team, type: :model do
 
       context 'when assigned as an another role' do
         let(:another_role) { :manager }
-        subject(:another_assign) { team.assign_user(user, another_role) }
+        subject(:another_assign) { team.assign_member(user, another_role) }
 
         it 'assigns as an another role' do
           expect(team.members[role]).to be_include(user)
@@ -178,11 +178,11 @@ RSpec.describe Team, type: :model do
     end
   end
 
-  describe '#withdraw_user' do
+  describe '#withdraw_member' do
     let!(:team) { create :team }
     let!(:user) { create :user }
     let(:role)  { :member }
-    subject(:withdraw) { team.withdraw_user(user, role) }
+    subject(:withdraw) { team.withdraw_member(user, role) }
 
     context 'when user does not assigned to team' do
       specify { expect { subject }.to raise_error ActiveRecord::RecordNotFound }
@@ -196,7 +196,7 @@ RSpec.describe Team, type: :model do
       before { Timecop.freeze(Time.local(2015, 1, 30)) }
 
       it 'withdraw user from team' do
-        team.assign_user(user, role)
+        team.assign_member(user, role)
         expect(assign.withdrawn_on).to be_nil
         withdraw
         assign.reload
@@ -225,13 +225,13 @@ RSpec.describe Team, type: :model do
     end
 
     before do
-      team.assign_user(director,           :director)
-      team.assign_user(manager,            :manager)
-      team.assign_user(leader,             :leader)
-      team.assign_user(member,             :member)
-      team.assign_user(other_member,       :member)
-      team.assign_user(withdrawn_member,   :member, Date.yesterday)
-      team.withdraw_user(withdrawn_member, :member)
+      team.assign_member(director,           :director)
+      team.assign_member(manager,            :manager)
+      team.assign_member(leader,             :leader)
+      team.assign_member(member,             :member)
+      team.assign_member(other_member,       :member)
+      team.assign_member(withdrawn_member,   :member, Date.yesterday)
+      team.withdraw_member(withdrawn_member, :member)
     end
 
     it 'returns correlct list of members' do
@@ -249,7 +249,7 @@ RSpec.describe User, type: :model do
 
     context 'without assignments to specified team' do
       let!(:another_team) { create :team }
-      before { another_team.assign_user(user, :member) }
+      before { another_team.assign_member(user, :member) }
       it 'retruns no roles' do
         expect(roles).to match_array []
         expect(Assignment.where(user_id: user.id, team_id: another_team.id)).to be_present
@@ -258,14 +258,14 @@ RSpec.describe User, type: :model do
 
     context 'with assignments' do
       context 'assigned only as a :member' do
-        before { team.assign_user(user, :member) }
+        before { team.assign_member(user, :member) }
         specify { expect(roles).to match_array [:member] }
       end
 
       context 'assigned as :leader and :manager' do
         before do
-          team.assign_user(user, :leader)
-          team.assign_user(user, :manager)
+          team.assign_member(user, :leader)
+          team.assign_member(user, :manager)
         end
         specify { expect(roles).to match_array [:leader, :manager] }
       end
