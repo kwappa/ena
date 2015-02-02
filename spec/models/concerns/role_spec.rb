@@ -153,7 +153,7 @@ RSpec.describe Team, type: :model do
         Assignment.where(team_id: team.id, user_id: user.id, role_id: ::Role.id(role)).first
       end
 
-      before  { Timecop.freeze(Time.local(2015, 1, 30)) }
+      before { Timecop.freeze(Time.local(2015, 1, 30)) }
 
       it 'withdraw user from team' do
         team.assign_user(user, role)
@@ -162,6 +162,40 @@ RSpec.describe Team, type: :model do
         assign.reload
         expect(assign.withdrawn_on).to eq Date.today
       end
+
+      after { Timecop.return }
+    end
+  end
+
+  describe '#members' do
+    let!(:team)             { create :team }
+    let!(:director)         { create :user }
+    let!(:manager)          { create :user }
+    let!(:leader)           { create :user }
+    let!(:member)           { create :user }
+    let!(:other_member)     { create :user }
+    let!(:withdrawn_member) { create :user }
+    let(:expected_members) do
+      {
+        director: [director],
+        manager:  [manager],
+        leader:   [leader],
+        member:   [member, other_member],
+      }
+    end
+
+    before do
+      team.assign_user(director,           :director)
+      team.assign_user(manager,            :manager)
+      team.assign_user(leader,             :leader)
+      team.assign_user(member,             :member)
+      team.assign_user(other_member,       :member)
+      team.assign_user(withdrawn_member,   :member, Date.yesterday)
+      team.withdraw_user(withdrawn_member, :member)
+    end
+
+    it 'returns correlct list of members' do
+      expect(team.members).to eq expected_members
     end
   end
 end

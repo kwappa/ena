@@ -4,7 +4,7 @@ module Role
     :leader,                    # 1
     :manager,                   # 2
     :director,                  # 3
-  ]
+  ].freeze
 
   PERMISSIONS = {
     team_assign: {
@@ -13,7 +13,7 @@ module Role
       leader:   [:member],
       member:   [],
     },
-  }
+  }.freeze
 
   def self.id(name)
     NAMES.index(name) or raise(ArgumentError.new("role name [#{name}] does not found."))
@@ -27,6 +27,10 @@ module Role
     PERMISSIONS.fetch(action).fetch(role)
   rescue
     raise ArgumentError.new("action #{action} or role #{role} does not found.")
+  end
+
+  def self.names
+    NAMES.reverse
   end
 
   module User
@@ -53,6 +57,17 @@ module Role
       assign = ::Assignment.where(team_id: self.id, user_id: user.id, role_id: Role.id(role)).active.first
       raise ActiveRecord::RecordNotFound unless assign.present?
       assign.update(withdrawn_on: withdrawn_on)
+    end
+
+    def members
+      result = Role.names.each_with_object({}) { |name, r| r[name] = [] }
+      self.active_users.each do |active_user|
+        active_user.roles(self).each do |role|
+          result[role].push(active_user)
+        end
+      end
+
+      result
     end
   end
 end
