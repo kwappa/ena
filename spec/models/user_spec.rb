@@ -190,6 +190,55 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '.search_by_name_or_nick' do
+    let!(:alice) { create(:user, nick: 'alice', name: 'name_of_alice') }
+    let!(:bob)   { create(:user, nick: 'nick_of_bob', name: 'bob') }
+    let!(:carol) { create(:user, nick: 'charol', name: 'carol') }
+    subject(:result) { described_class.search_by_name_or_nick(keyword) }
+
+    context 'when "a" is given' do
+      let(:keyword) { 'a' }
+      it 'returns alice' do
+        expect(result).to match_array [alice]
+      end
+    end
+
+    context 'when "b" is given' do
+      let(:keyword) { 'b' }
+      it 'returns bob' do
+        expect(result).to match_array [bob]
+      end
+    end
+
+    context 'when "c" is given' do
+      let(:keyword) { 'c' }
+      it 'returns carol' do
+        expect(result).to match_array [carol]
+      end
+    end
+
+    context 'when "c*a+r" is given' do
+      let(:keyword) { 'c*a+r' }
+      it 'returns carol' do
+        expect(result).to match_array [carol]
+      end
+    end
+
+    context 'when "n" is given' do
+      let(:keyword) { 'n' }
+      it 'returns alice and bob' do
+        expect(result).to match_array [alice, bob]
+      end
+    end
+
+    context 'when "z" is given' do
+      let(:keyword) { 'z' }
+      it 'returns blank' do
+        expect(result).to match_array []
+      end
+    end
+  end
+
   describe '#active? and #suspended?' do
     let!(:active_user)       { create(:user) }
     let!(:suspended_user)    { create(:user, suspend_reason: 1) }
