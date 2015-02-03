@@ -28,3 +28,10 @@ form.team_form {
         }
     }
 }
+
+form.search_candidate_member {
+    display: inline-block;
+    input[type="text"] {
+        width: 32em;
+    }
+}

@@ -27,6 +27,26 @@
           %h2.content-head
             %i.fa.fa-group.fa-lg
             Members
+
+        %div.post-description.team_members
+          - @team.members.each do |role, members|
+            %h3.team_role_header
+              = role.to_s.capitalize.pluralize
+            %ul
+              - members.each do |member|
+                %li
+                  = link_to home_path(member.nick) do
+                    %i.fa.fa-user.fa-lg
+                  #{member.nick} (#{member.name})
+          - if @team.assignable?(current_user, :member)
+            %div.search_candidate_user
+              %i.fa.fa-user-plus.fa-lg
+              = form_tag '#', action: :post, class: 'pure-form search_candidate_member' do
+                = text_field_tag :name_or_nick, '', class: 'pure-input-rounded', placeholder: 'Name of Nick (left-hand match)'
+                = button_tag class: 'pure-button' do
+                  %i.fa.fa-search.fa-lg
+                  Search
+
         %header.post-header
           %h2.content-head
             %i.fa.fa-file-o.fa-lg
