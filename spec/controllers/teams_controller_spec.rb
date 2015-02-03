@@ -131,4 +131,61 @@ RSpec.describe TeamsController, type: :controller do
       specify { expect(new).to be_ok }
     end
   end
+
+  describe '#search_candidate_member' do
+    let!(:team) { create :team }
+    let!(:user) { create :user }
+    let!(:alice) { create :user, nick: 'nick_alice', name: 'alice' }
+    let(:team_id) { team.id }
+    let(:name_or_nick) { nil }
+    let(:params) { { team_id: team_id, name_or_nick: name_or_nick } }
+    subject(:search_candidate_member) { post :search_candidate_member, params }
+
+    context 'when guest user' do
+      specify { expect(search_candidate_member).to redirect_to(new_user_session_path) }
+    end
+
+    context 'when login user' do
+      before { sign_in user }
+
+      context 'with invalid team id' do
+        let(:team_id) { 9999 }
+        specify { expect(search_candidate_member).to redirect_to(teams_path) }
+      end
+
+      context 'when not authorized' do
+        specify { expect(search_candidate_member).to redirect_to(team_path(team)) }
+      end
+
+      context 'when administrator' do
+        before { user.authorize(:administration) }
+
+        context 'without search keyword' do
+          specify { expect(search_candidate_member).to redirect_to(team_path(team)) }
+        end
+
+        context 'with search keyword but no result' do
+          let(:name_or_nick) { 'INVALID_NAME_OR_NICK' }
+          specify { expect(search_candidate_member).to redirect_to(team_path(team)) }
+        end
+
+        context 'with search result' do
+          let(:name_or_nick) { 'alice' }
+          specify { expect(search_candidate_member).to be_ok }
+        end
+      end
+
+      context 'when director of this team' do
+        before { team.assign_member(user, :director) }
+        let(:name_or_nick) { 'alice' }
+        specify { expect(search_candidate_member).to be_ok }
+      end
+
+      context 'when member of this team' do
+        before { team.assign_member(user, :member) }
+        let(:name_or_nick) { 'alice' }
+        specify { expect(search_candidate_member).to redirect_to(team_path(team)) }
+      end
+    end
+  end
 end

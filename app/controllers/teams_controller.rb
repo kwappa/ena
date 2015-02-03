@@ -3,8 +3,10 @@ class TeamsController < ApplicationController
 
   TEAMS_PER_PAGE = 10
 
-  before_action :prepare_team, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:search_candidate_member]
+  before_action :prepare_team, only: [:show, :edit, :update, :destroy, :search_candidate_member]
   before_action :authorize_team_create, only: [:new, :create]
+  before_action :authorize_assign_member, only: [:search_candidate_member]
 
   def index
     @teams = Team.page(params[:page]).per(TEAMS_PER_PAGE)
@@ -30,6 +32,20 @@ class TeamsController < ApplicationController
     validate_and_save_team
   end
 
+  def search_candidate_member
+    name_or_nick = params[:name_or_nick]
+    if name_or_nick.blank?
+      flash[:warning] = "name or nick must be present."
+      redirect_to(team_path(@team.id)) and return
+    end
+
+    @candidate_members = User.search_by_name_or_nick(name_or_nick)
+    if @candidate_members.empty?
+      flash[:warning] = "[#{name_or_nick}] does not found on any user's name or nick."
+      redirect_to(team_path(@team.id)) and return
+    end
+  end
+
   private
 
   def team_params
@@ -38,7 +54,7 @@ class TeamsController < ApplicationController
 
   def prepare_team
     begin
-      @team = Team.find(params[:id])
+      @team = Team.find(params[:id] || params[:team_id])
     rescue ActiveRecord::RecordNotFound
       flash[:error] = 'Team does not exist.'
       redirect_to teams_path and return
@@ -70,6 +86,13 @@ class TeamsController < ApplicationController
     unless permitted_user?(:team_create)
       flash[:warning] = "you don't have permission to create new team."
       redirect_to teams_path
+    end
+  end
+
+  def authorize_assign_member
+    unless @team.assignable?(current_user, :member)
+      flash[:warning] = "you don't have permission to assign members to this team."
+      redirect_to team_path(@team)
     end
   end
 end

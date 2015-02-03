@@ -41,8 +41,8 @@
           - if @team.assignable?(current_user, :member)
             %div.search_candidate_user
               %i.fa.fa-user-plus.fa-lg
-              = form_tag '#', action: :post, class: 'pure-form search_candidate_member' do
-                = text_field_tag :name_or_nick, '', class: 'pure-input-rounded', placeholder: 'Name of Nick (left-hand match)'
+              = form_tag team_search_candidate_member_path(@team), action: :post, class: 'pure-form search_candidate_member' do
+                = text_field_tag :name_or_nick, '', class: 'pure-input-rounded', placeholder: 'Name or Nick (left-hand match)'
                 = button_tag class: 'pure-button' do
                   %i.fa.fa-search.fa-lg
                   Search
