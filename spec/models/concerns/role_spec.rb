@@ -81,6 +81,12 @@ RSpec.describe Team, type: :model do
       end
     end
 
+    context 'when user does not logging-in' do
+      let(:role) { :member }
+      let(:user) { nil }
+      specify { expect(assignable?).to_not be }
+    end
+
     context 'when administrator' do
       let(:role) { :director }
       before  { user.authorize(:administration) }

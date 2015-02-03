@@ -41,6 +41,7 @@ module Role
 
   module Team
     def assignable?(operator, role)
+      return false unless operator.present?
       return true if operator.permitted?(:team_assign)
       return false unless self.users.include?(operator)
       operator.roles(self).each do |operator_role|
