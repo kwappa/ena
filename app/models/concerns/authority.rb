@@ -36,5 +36,9 @@ module Authority
     def permitted?(action)
       Authority.permitted?(action, self.authority)
     end
+
+    def admin?
+      self.authority == :administration
+    end
   end
 end

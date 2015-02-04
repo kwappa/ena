@@ -119,4 +119,16 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#admin?' do
+    context 'when authorized for :administration' do
+      before { user.authorize(:administration) }
+      specify { expect(user).to be_admin }
+    end
+
+    context 'when authorized for :direction' do
+      before { user.authorize(:direction) }
+      specify { expect(user).to_not be_admin }
+    end
+  end
 end
