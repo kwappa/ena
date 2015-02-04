@@ -268,12 +268,13 @@ RSpec.describe User, type: :model do
         specify { expect(roles).to match_array [:member] }
       end
 
-      context 'assigned as :leader and :manager' do
+      context 'assigned as :leader, :member and :manager' do
         before do
           team.assign_member(user, :leader)
+          team.assign_member(user, :member)
           team.assign_member(user, :manager)
         end
-        specify { expect(roles).to match_array [:leader, :manager] }
+        specify { expect(roles).to eq [:manager, :leader, :member] }
       end
     end
   end

@@ -35,7 +35,8 @@ module Role
 
   module User
     def roles(team)
-      self.assignments.where(team_id: team.id).pluck(:role_id).uniq.map { |role_id| Role.name(role_id) }
+      self.assignments.where(team_id: team.id).pluck(:role_id)
+        .uniq.sort.reverse.map { |role_id| Role.name(role_id) }
     end
   end
 
