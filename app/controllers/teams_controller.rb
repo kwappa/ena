@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
   include AuthorityHelper
+  include RoleHelper
 
   TEAMS_PER_PAGE = 10
 

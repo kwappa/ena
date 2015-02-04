@@ -1,2 +1,36 @@
-- @candidate_members.each do |candidate_member|
-  = candidate_member.name
+%div.content.pure-u-1.pure-u-md-3-4
+  %div
+    %div.posts
+      %h1
+        %i.fa.fa-cube.fa-lg
+        = @team.name
+      %section.post
+        %header.post-header
+          %h2.content-head
+            %i.fa.fa-user-plus.fa-lg
+            Assign Team Members
+        %div.post-description
+          %table.pure-table
+            %thead
+              %th Name
+              %th
+                %i.fa.fa-external-link.fa-lg
+              %th Assign
+            %tbody
+            - @candidate_members.each_with_index do |candidate_member, idx|
+              %tr{ class: idx.odd? ? 'pure-table-odd' : '' }
+                %td
+                  = "#{candidate_member.nick} (#{candidate_member.name})"
+                %td
+                  = link_to home_path(candidate_member.nick), target: '_blank' do
+                    %i.fa.fa-external-link.fa-lg
+                %td
+                  - assignable_roles = candidate_roles(@team, current_user, candidate_member)
+                  - if assignable_roles.present?
+                    = form_tag '#', action: :post, class: 'pure-form assign_user' do
+                      - assignable_roles.each do |role|
+                        - label_id = "#{candidate_member.id}_role_#{role}"
+                        = radio_button_tag(:role, role, '', id: label_id)
+                        = label_tag(label_id, role.to_s.capitalize)
+                      = button_tag class: 'pure-button', data: { confirm: 'are you sure?' } do
+                        %i.fa.fa-user-plus.fa-lg
