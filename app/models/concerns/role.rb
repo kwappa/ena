@@ -8,8 +8,8 @@ module Role
 
   PERMISSIONS = {
     team_assign: {
-      director: [:member, :leader, :manager],
-      manager:  [:member, :leader],
+      director: [:manager,:leader, :member],
+      manager:  [:leader, :member],
       leader:   [:member],
       member:   [],
     },
@@ -35,8 +35,21 @@ module Role
 
   module User
     def roles(team)
-      self.assignments.where(team_id: team.id).pluck(:role_id)
+      self.assignments.active.where(team_id: team.id).pluck(:role_id)
         .uniq.sort.reverse.map { |role_id| Role.name(role_id) }
+    end
+
+    def assignable_team_member_roles(team)
+      if self.admin?
+        [:director, :manager, :leader, :member]
+      else
+        roles = self.roles(team)
+        if roles.present?
+          Role.permissions(:team_assign, roles.first)
+        else
+          []
+        end
+      end
     end
   end
 

@@ -248,9 +248,9 @@ end
 
 RSpec.describe User, type: :model do
   let!(:user) { create :user }
+  let!(:team) { create :team }
 
   describe '#roles' do
-    let!(:team) { create :team }
     subject(:roles) { user.roles(team) }
 
     context 'without assignments to specified team' do
@@ -276,6 +276,41 @@ RSpec.describe User, type: :model do
         end
         specify { expect(roles).to eq [:manager, :leader, :member] }
       end
+    end
+  end
+
+  describe '#assignable_team_member_roles' do
+    subject(:roles) { user.assignable_team_member_roles(team) }
+
+    context 'when admin' do
+      before { user.authorize(:administration) }
+      specify { expect(roles).to eq [:director, :manager, :leader, :member] }
+    end
+
+    context 'when director' do
+      before { team.assign_member(user, :director) }
+      specify { expect(roles).to eq [:manager, :leader, :member] }
+
+      context 'when assigned as :member too' do
+        before { team.assign_member(user, :member) }
+        specify { expect(roles).to eq [:manager, :leader, :member] }
+      end
+
+      context 'but already withdrawn' do
+        before { team.withdraw_member(user, :director) }
+        specify { expect(roles).to eq [] }
+      end
+    end
+
+    context 'when member' do
+      before do
+        team.assign_member(user, :member)
+      end
+      specify { expect(roles).to eq [] }
+    end
+
+    context 'when not assigned' do
+      specify { expect(roles).to eq [] }
     end
   end
 end
