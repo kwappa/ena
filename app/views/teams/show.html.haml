@@ -32,15 +32,19 @@
           - @team.members.each do |role, members|
             %h3.team_role_header
               = role.to_s.capitalize.pluralize
-            %ul
+            %ul.team_member_list
               - members.each do |member|
                 %li
-                  = link_to home_path(member.nick) do
+                  = link_to home_path(member.nick), target: '_blank' do
                     %i.fa.fa-user.fa-lg
                   #{member.nick} (#{member.name})
           - if @team.assignable?(current_user, :member)
-            %div.search_candidate_user
+            %h2.content-head
               %i.fa.fa-user-plus.fa-lg
+              Assign New Member
+
+            %div.search_candidate_user
+              %i.fa.fa-search.fa-lg
               = form_tag team_search_candidate_member_path(@team), action: :post, class: 'pure-form search_candidate_member' do
                 = text_field_tag :name_or_nick, '', class: 'pure-input-rounded', placeholder: 'Name or Nick (left-hand match)'
                 = button_tag class: 'pure-button' do
