@@ -15,7 +15,8 @@
               %th Name
               %th
                 %i.fa.fa-external-link.fa-lg
-              %th Assign
+              %th New Assign
+              %th Current Assign
             %tbody
             - @candidate_members.each_with_index do |candidate_member, idx|
               %tr{ class: idx.odd? ? 'pure-table-odd' : '' }
@@ -36,3 +37,5 @@
                         = hidden_field_tag(:candidate_member_id, candidate_member.id)
                       = button_tag class: 'pure-button', data: { confirm: 'are you sure?' } do
                         %i.fa.fa-user-plus.fa-lg
+                %td
+                  = candidate_member.roles(@team).map(&:to_s).map(&:capitalize).join(', ')
