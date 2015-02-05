@@ -27,10 +27,12 @@
                 %td
                   - assignable_roles = candidate_roles(@team, current_user, candidate_member)
                   - if assignable_roles.present?
-                    = form_tag '#', action: :post, class: 'pure-form assign_user' do
+                    = form_tag team_assign_member_path, action: :post, class: 'pure-form assign_user' do
                       - assignable_roles.each do |role|
                         - label_id = "#{candidate_member.id}_role_#{role}"
                         = radio_button_tag(:role, role, '', id: label_id)
                         = label_tag(label_id, role.to_s.capitalize)
+                        = hidden_field_tag(:operator_id, current_user.id)
+                        = hidden_field_tag(:candidate_member_id, candidate_member.id)
                       = button_tag class: 'pure-button', data: { confirm: 'are you sure?' } do
                         %i.fa.fa-user-plus.fa-lg
