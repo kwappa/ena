@@ -188,4 +188,57 @@ RSpec.describe TeamsController, type: :controller do
       end
     end
   end
+
+  describe '#assign_member' do
+    let!(:team) { create :team }
+    let!(:operator) { create :user }
+    let!(:candidate_member) { create :user }
+    let(:team_id) { team.id }
+    let(:operator_id) { operator.id }
+    let(:candidate_member_id) { candidate_member.id }
+    let(:role) { :member }
+    let(:params) do
+      {
+        team_id: team_id,
+        operator_id: operator_id,
+        candidate_member_id: candidate_member_id,
+        role: role,
+      }
+    end
+    subject(:assign_member) { post :assign_member, params }
+
+    shared_examples 'failed to assign member' do
+      it 'failed to assign member' do
+        expect(assign_member).to redirect_to teams_path
+      end
+    end
+
+    context 'when team does not fooud' do
+      let(:team_id) { 0 }
+      include_examples 'failed to assign member'
+    end
+
+    context 'when operator does not fooud' do
+      let(:operator_id) { 0 }
+      include_examples 'failed to assign member'
+    end
+
+    context 'when candidate member does not fooud' do
+      let(:candidate_member_id) { 0 }
+      include_examples 'failed to assign member'
+    end
+
+    context 'when operator can not assign member' do
+      include_examples 'failed to assign member'
+    end
+
+    context 'when operator can assign member' do
+      before { team.assign_member(operator, :director) }
+      it 'assigns candidate member to team' do
+        expect { assign_member }
+          .to change { team.members[role].include?(candidate_member) }.from(false).to(true)
+      end
+      specify { expect(assign_member).to redirect_to team_path(team) }
+    end
+  end
 end

@@ -47,6 +47,23 @@ class TeamsController < ApplicationController
     end
   end
 
+  def assign_member
+    team             = Team.find(params[:team_id])
+    operator         = User.find(params[:operator_id])
+    candidate_member = User.find(params[:candidate_member_id])
+    role             = params[:role].to_sym
+
+    raise unless team.assignable?(operator, role)
+
+    team.assign_member(candidate_member, role)
+    flash[:notice] = "user [#{candidate_member.nick}] is assigned to [#{team.name}] as [#{role.to_s.capitalize}]."
+
+    redirect_to team_path(team)
+  rescue
+    flash[:error] = 'failed to assign member.'
+    redirect_to teams_path
+  end
+
   private
 
   def team_params
