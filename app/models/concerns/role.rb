@@ -82,13 +82,9 @@ module Role
 
     def members
       result = Role.names.each_with_object({}) { |name, r| r[name] = [] }
-      self.active_users.each do |active_user|
-        active_user.roles(self).each do |role|
-          result[role].push(active_user)
-        end
+      self.assignments.active.includes(:user).each_with_object(result) do |assignment, r|
+        r[assignment.role].push(assignment.user)
       end
-
-      result
     end
   end
 end
