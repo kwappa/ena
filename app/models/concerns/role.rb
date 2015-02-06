@@ -13,6 +13,12 @@ module Role
       leader:   [:member],
       member:   [],
     },
+    team_edit_description: {
+      director: true,
+      manager:  true,
+      leader:   true,
+      member:   true,
+    }
   }.freeze
 
   def self.id(name)
@@ -85,6 +91,11 @@ module Role
       self.assignments.active.includes(:user).each_with_object(result) do |assignment, r|
         r[assignment.role].push(assignment.user)
       end
+    end
+
+    def description_editable?(operator)
+      return true if operator.permitted?(:team_edit_description)
+      operator.roles(self).any? { |role| Role.permissions(:team_edit_description, role) }
     end
   end
 end
