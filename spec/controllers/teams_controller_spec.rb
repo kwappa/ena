@@ -76,7 +76,7 @@ RSpec.describe TeamsController, type: :controller do
     let(:team_id)          { 0 }
     let(:team_name)        { '' }
     let(:team_description) { '' }
-    let(:team_params)      { { id: team_id, name: team_name, description: team_description } }
+    let(:team_params)      { { id: team_id, description: team_description } }
     let(:team)             { create(:team) }
     subject(:update)       { patch :update, id: team_id, team: team_params }
 
@@ -125,6 +125,7 @@ RSpec.describe TeamsController, type: :controller do
           end
 
           context 'with invalid data' do
+            let(:team_params)      { { id: team_id, description: team_description, name: nil } }
             before { update }
             it 'stores error message and redirect' do
               expect(flash[:error]).to be_present
@@ -136,6 +137,59 @@ RSpec.describe TeamsController, type: :controller do
         context 'as a member of this team' do
           before { team.assign_member(user, :member) }
           include_examples 'updates description of team'
+        end
+      end
+    end
+
+    describe 'filter parameters by role of operator' do
+      let(:old_description) { 'old description' }
+      let(:new_description) { 'new description' }
+      let(:old_name) { 'old name' }
+      let(:new_name) { 'new name' }
+      let(:old_organized_on) { 20.days.ago.to_date }
+      let(:old_disbanded_on) { nil }
+      let(:new_organized_on) { 15.days.ago.to_date }
+      let(:new_disbanded_on) { 10.days.ago.to_date }
+      let!(:team) do
+        create :team, name: old_name, description: old_description, organized_on: old_organized_on
+      end
+      let(:team_id) { team.id }
+      let(:team_params) do
+        {
+          team_id: team_id,
+          description: new_description,
+          name: new_name,
+          organized_on: new_organized_on,
+          disbanded_on: new_disbanded_on,
+        }
+      end
+
+      let(:user) { create :user }
+      before { sign_in user }
+
+      context 'when member do' do
+        before { team.assign_member(user, :member) }
+
+        it 'updates only description' do
+          update
+          team.reload
+          expect(team.name).to eq old_name
+          expect(team.description).to eq new_description
+          expect(team.organized_on).to eq old_organized_on
+          expect(team.disbanded_on).to be_nil
+        end
+      end
+
+      context 'when director do' do
+        before { team.assign_member(user, :director) }
+
+        it 'updates all attributes' do
+          update
+          team.reload
+          expect(team.name).to eq new_name
+          expect(team.description).to eq new_description
+          expect(team.organized_on).to eq new_organized_on
+          expect(team.disbanded_on).to eq new_disbanded_on
         end
       end
     end
