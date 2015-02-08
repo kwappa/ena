@@ -23,7 +23,8 @@
                   = link_to team_path(team) do
                     %i.fa.fa-cube
                     = team.name
-                %td= team.render(:description).html_safe
+                %td
+                  = team_summary(team)
                 %td
                   = render 'active_period', team: team
                   %br
