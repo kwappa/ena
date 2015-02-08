@@ -21,7 +21,7 @@ class TeamsController < ApplicationController
   end
 
   def create
-    @team = Team.new(team_params)
+    @team = Team.new(team_detail_params)
     validate_and_save_team
   end
 
@@ -34,7 +34,11 @@ class TeamsController < ApplicationController
       redirect_to team_path(@team) and return
     end
 
-    @team.assign_attributes(team_params)
+    if @team.detail_editable?(current_user)
+      @team.assign_attributes(team_detail_params)
+    else
+      @team.assign_attributes(team_description_params)
+    end
     validate_and_save_team
   end
 
@@ -71,8 +75,12 @@ class TeamsController < ApplicationController
 
   private
 
-  def team_params
-    params.require(:team).permit(:name, :description, :disbanded_on)
+  def team_detail_params
+    params.require(:team).permit(:name, :description, :organized_on, :disbanded_on)
+  end
+
+  def team_description_params
+    params.require(:team).permit(:description)
   end
 
   def prepare_team
