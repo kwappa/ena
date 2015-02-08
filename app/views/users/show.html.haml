@@ -3,12 +3,14 @@
     %div.posts
 
       = render 'suspended', user: @user if @user.suspended?
+      %h1
+        %i.fa.fa-user.fa-lg
+        = @user.nick
 
-      %h1.content-subhead
       %section.post
         %header.post-header
-          %h2
-            %i.fa.fa-user.fa-lg
+          %h2.content-head
+            %i.fa.fa-smile-o.fa-lg
             Profile
             - if myself?(@user)
               = link_to edit_user_registration_path, class: 'edit_link' do
@@ -35,10 +37,9 @@
               %td
                 = @user.member_number
     %div.posts
-      %h1.content-subhead
       %section.post
         %header.post-header
-          %h2
+          %h2.content-head
             %i.fa.fa-tags.fa-lg
             Tags
         %div.post-description
@@ -51,10 +52,9 @@
                   %i.fa.fa-tag.fa-lg
                     Attach
     %div.posts
-      %h1.content-subhead
       %section.post
         %header.post-header
-          %h2
+          %h2.content-head
             %i.fa.fa-file-text.fa-lg
             Resume
             - if myself?(@user)
