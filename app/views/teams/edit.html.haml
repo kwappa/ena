@@ -1,9 +1,17 @@
-= form_for @team do |f|
-  .field
-    = f.text_field :name
-  .field
-    = f.text_area :description
-  = button_tag class: 'pure-button' do
-    %i.fa.fa-save.fa-lg
-      Save
+%div.content.pure-u-1.pure-u-md-3-4
+  %div
+    %div.posts
+      %h1
+        %i.fa.fa-cube.fa-lg
+        = @team.name
+      %section.post
+        %div.post-description
+          %h2.content-head
+            %i.fa.fa-edit.fa-lg
+            Edit Description
 
+          = form_for @team, html: { class: 'team_form' } do |f|
+            = f.text_area :description
+            = button_tag class: 'pure-button', data: { confirm: 'Create new team. Are you sure?' } do
+              %i.fa.fa-save.fa-lg
+              Save

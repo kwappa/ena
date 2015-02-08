@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
 
   TEAMS_PER_PAGE = 10
 
-  before_action :authenticate_user!, only: [:search_candidate_member]
+  before_action :authenticate_user!, only: [:search_candidate_member, :update]
   before_action :prepare_team, only: [:show, :edit, :update, :destroy, :search_candidate_member]
   before_action :authorize_team_create, only: [:new, :create]
   before_action :authorize_assign_member, only: [:search_candidate_member]
@@ -29,6 +29,11 @@ class TeamsController < ApplicationController
   end
 
   def update
+    unless @team.description_editable?(current_user)
+      flash[:warning] = "You don't have a permission to update this team."
+      redirect_to team_path(@team) and return
+    end
+
     @team.assign_attributes(team_params)
     validate_and_save_team
   end

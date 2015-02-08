@@ -80,8 +80,22 @@ RSpec.describe TeamsController, type: :controller do
     let(:team)             { create(:team) }
     subject(:update)       { patch :update, id: team_id, team: team_params }
 
+    shared_examples 'updates description of team' do
+      let(:team_name) { 'test team' }
+      let(:team_description) { 'this is an awsome team first ever!' }
+      let(:old_team_description) { team.description }
+      it 'updates description of team' do
+        expect { update }.to change { team.reload.description }.from(old_team_description).to(team_description)
+        expect(response).to redirect_to team_path(team)
+      end
+    end
+
     context 'when team does not exist' do
-      before { update }
+      before do
+        sign_in create(:user)
+        update
+      end
+
       it 'stores error message and redirect' do
         expect(flash[:error]).to be_present
         expect(response).to redirect_to teams_path
@@ -91,20 +105,37 @@ RSpec.describe TeamsController, type: :controller do
     context 'when team exist' do
       let(:team_id) { team.id }
 
-      context 'with valid data' do
-        let(:team_name) { 'new team name' }
-        let(:old_team_name) { team.name }
-        it 'updates team name' do
-          expect { update }.to change { team.reload.name }.from(old_team_name).to(team_name)
-          expect(response).to redirect_to team_path(team)
-        end
+      context 'when user does not logging in' do
+        specify { expect(update).to redirect_to new_user_session_path }
       end
 
-      context 'with invalid data' do
-        before { update }
-        it 'stores error message and redirect' do
-          expect(flash[:error]).to be_present
-          expect(response).to redirect_to edit_team_path(team)
+      context 'when user logging in' do
+        let!(:user) { create :user }
+        before { sign_in user }
+
+        context 'as a guest' do
+          specify { expect(update).to redirect_to team_path(team) }
+        end
+
+        context 'as an administrator' do
+          before { user.authorize(:administration) }
+
+          context 'with valid data' do
+            include_examples 'updates description of team'
+          end
+
+          context 'with invalid data' do
+            before { update }
+            it 'stores error message and redirect' do
+              expect(flash[:error]).to be_present
+              expect(response).to redirect_to edit_team_path(team)
+            end
+          end
+        end
+
+        context 'as a member of this team' do
+          before { team.assign_member(user, :member) }
+          include_examples 'updates description of team'
         end
       end
     end

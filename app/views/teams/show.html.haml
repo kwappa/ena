@@ -55,5 +55,8 @@
           %h2.content-head
             %i.fa.fa-file-o.fa-lg
             Description
+            - if @team.description_editable?(current_user)
+              = link_to edit_team_path(@team), class: 'edit_link' do
+                %i.fa.fa-edit.fa-lg
           %div
             = @team.render(:description).html_safe
