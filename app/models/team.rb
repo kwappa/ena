@@ -14,4 +14,8 @@ class Team < ActiveRecord::Base
   def disbanded?
     self.active?.!
   end
+
+  def roles(user)
+    self.assignments.where(user_id: user.id).pluck(:role_id).map { |role_id| Role.name(role_id) }.uniq
+  end
 end

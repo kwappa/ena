@@ -10,4 +10,8 @@ class Assignment < ActiveRecord::Base
   def role
     Role.name(self.role_id)
   end
+
+  def active?
+    self.assigned_on <= Date.today && self.withdrawn_on.nil?
+  end
 end
