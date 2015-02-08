@@ -264,6 +264,41 @@ RSpec.describe Team, type: :model do
       specify { expect(editable?).to be true }
     end
   end
+
+  describe '#detail_editable?' do
+    let!(:team) { create :team }
+    let!(:user) { create :user }
+    subject(:editable?) { team.detail_editable?(user) }
+
+    context 'when not a member' do
+      specify { expect(editable?).to be false }
+    end
+
+    context 'when administrator' do
+      before { user.authorize(:administration) }
+      specify { expect(editable?).to be true }
+    end
+
+    context 'when director of this team' do
+      before { team.assign_member(user, :director) }
+      specify { expect(editable?).to be true }
+    end
+
+    context 'when manager of this team' do
+      before { team.assign_member(user, :manager) }
+      specify { expect(editable?).to be false }
+    end
+
+    context 'when leader of this team' do
+      before { team.assign_member(user, :leader) }
+      specify { expect(editable?).to be false }
+    end
+
+    context 'when member of this team' do
+      before { team.assign_member(user, :member) }
+      specify { expect(editable?).to be false }
+    end
+  end
 end
 
 RSpec.describe User, type: :model do

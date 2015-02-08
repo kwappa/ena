@@ -10,7 +10,8 @@ module Authority
   PERMISSIONS = {
     team_create:           [:administration, :direction],
     team_assign:           [:administration],
-    team_edit_description: [:administration]
+    team_edit_description: [:administration],
+    team_edit_detail:      [:administration],
   }
 
   def self.id(name)

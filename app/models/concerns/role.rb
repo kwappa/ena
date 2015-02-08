@@ -18,7 +18,13 @@ module Role
       manager:  true,
       leader:   true,
       member:   true,
-    }
+    },
+    team_edit_detail: {
+      director: true,
+      manager:  false,
+      leader:   false,
+      member:   false,
+    },
   }.freeze
 
   def self.id(name)
@@ -96,6 +102,11 @@ module Role
     def description_editable?(operator)
       return true if operator.permitted?(:team_edit_description)
       operator.roles(self).any? { |role| Role.permissions(:team_edit_description, role) }
+    end
+
+    def detail_editable?(operator)
+      return true if operator.permitted?(:team_edit_detail)
+      operator.roles(self).any? { |role| Role.permissions(:team_edit_detail, role) }
     end
   end
 end
