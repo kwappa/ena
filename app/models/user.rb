@@ -1,10 +1,13 @@
 class User < ActiveRecord::Base
+  include Authority::User
+  include Role::User
+
   NAME_AND_NICK_VALIDATION_CONDITIONS = {
     presence: true,
     format: /\A[a-zA-Z0-9_\-]+\Z/,
     uniqueness: { case_sensitive: false },
     length: { minimum: 3, maximum: 240 },
-    username_not_reserved: { additional_reserved_names: %w[foo bar] },
+    username_not_reserved: { additional_reserved_names: %w[user_tag user_tags team teams] },
   }
 
   SUSPEND_STATUS = [
@@ -29,6 +32,8 @@ class User < ActiveRecord::Base
   has_many :user_taggings
   has_many :tags, through: :user_taggings, class_name: 'UserTag'
   has_many :resume_histories, class_name: 'UserResumeHistory'
+  has_many :assignments
+  has_many :teams, through: :assignments
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable
@@ -44,6 +49,11 @@ class User < ActiveRecord::Base
 
   scope :active,    -> { where(suspend_reason: 0) }
   scope :suspended, -> { where.not(suspend_reason: 0) }
+
+  def self.search_by_name_or_nick(name_or_nick)
+    like_word = "#{name_or_nick.gsub(/[^a-zA-Z0-9_\-]/, '')}%"
+    where(User.arel_table[:name].matches(like_word).or(User.arel_table[:nick].matches(like_word)))
+  end
 
   def tag_keyword(keyword)
     UserTag.retrieve(keyword).try(:attach, self)

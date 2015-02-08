@@ -1,0 +1,26 @@
+%div.content.pure-u-1.pure-u-md-3-4
+  %div
+    %div.posts
+      %h1
+        %i.fa.fa-cube.fa-lg
+        Create New Team
+      %section.post
+        %div.post-description
+          = form_for @team, html: { class: 'team_form' } do |f|
+            %table.pure-table.pure-table-bordered.detail_table
+              %tr
+                %td.column_name
+                  Team Name
+                %td.team_name
+                  = f.text_field :name
+              %tr
+                %td.column_name
+                  Description
+                %td.description
+                  = f.text_area :description
+              %tr
+                %td
+                %td
+                  = button_tag class: 'pure-button', data: { confirm: 'Create new team. Are you sure?' } do
+                    %i.fa.fa-save.fa-lg
+                    Save

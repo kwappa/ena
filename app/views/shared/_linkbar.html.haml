@@ -9,6 +9,9 @@
   = link_to user_tags_path, class: 'pure-button' do
     %i.fa.fa-tags.fa-lg
 
+  = link_to teams_path, class: 'pure-button' do
+    %i.fa.fa-cubes.fa-lg
+
   - if user_signed_in?
     = form_tag(destroy_user_session_path, method: :delete) do
       %button.pure-button{ type: 'submit' }

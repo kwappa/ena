@@ -1,0 +1,45 @@
+@import 'application';
+@import 'common';
+@import 'layout';
+
+.sidebar {
+    background: rgb(6, 99, 47);
+    color: #fff;
+}
+
+form.team_form {
+    textarea {
+        @include textarea-font;
+        width: 100%;
+        height: 24em;
+    }
+
+    button {
+        margin-top: 16px;
+    }
+
+    td.description {
+        width: 80%;
+    }
+
+    td.team_name {
+        input[type="text"] {
+            width: 100%;
+        }
+    }
+}
+
+form.search_candidate_member {
+    display: inline-block;
+    input[type="text"] {
+        width: 32em;
+    }
+}
+
+form.assign_user {
+    display: inline-block;
+}
+
+ul.team_member_list {
+    list-style-type: none;
+}

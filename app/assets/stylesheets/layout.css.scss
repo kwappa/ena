@@ -1,7 +1,5 @@
 @import 'application';
 
-$sidebar_width: 25%;
-
 a {
     text-decoration: none;
     color: rgb(61, 146, 201);
@@ -12,7 +10,7 @@ a:focus {
 }
 
 h3 {
-    font-weight: 100;
+    font-weight: bold;
 }
 
 /* LAYOUT CSS */
@@ -32,101 +30,6 @@ h3 {
     ul.profile {
         list-style-type: none;
     }
-}
-
-.flash_message {
-    margin-left: $sidebar_width;
-}
-
-table.profile {
-    td.column_name {
-        font-weight: bold;
-        text-align: right;
-    }
-    &.edit_form {
-        input[type="text"], input[type="email"], input[type="password"] {
-            width: 320px;
-        }
-    }
-}
-
-.edit_histories {
-    @include clearfix;
-    width: 100%;
-
-    .edit_history_list {
-        float: left;
-        width: 25%;
-        table {
-            width: 90%;
-            margin: auto;
-        }
-    }
-
-    .edit_history_detail {
-        float: left;
-        width: 75%;
-        .edit_history_detail_container {
-            padding-left: 16px;
-            height: 25em;
-            overflow-y: auto;
-        }
-    }
-}
-
-ul.pure-paginator {
-    margin-bottom: 32px;
-}
-
-form.resume_form {
-    textarea {
-        width: 80%;
-        height: 24em;
-        font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
-        line-height: 1.2em;
-    }
-
-    button {
-        margin-top: 16px;
-    }
-}
-
-a.edit_link {
-    font-weight: normal;
-    font-size: 0.7em;
-}
-
-
-.user_tags {
-    @include clearfix;
-    margin: 16px 4px;
-
-    .user_tag {
-        @include border-radius(16px);
-        float: left;
-        background-color: whitesmoke;
-        border: 1px solid silver;
-        padding: 2px 8px;
-        margin: 8px 4px;
-    }
-
-    form.tag_detach_form {
-        display: inline;
-        button {
-            position: relative;
-            top: -0.5em;
-            border: none;
-            background: none;
-            font-size: 50%;
-            margin: 0;
-            padding: 0;
-        }
-    }
-}
-
-.sidebar {
-    background: rgb(61, 79, 93);
-    color: #fff;
 }
 
 .brand-title,
@@ -262,21 +165,3 @@ a.edit_link {
         width: $sidebar_width;
     }
 }
-
-img.gravatar_icon {
-    @include border-radius(4px);
-    &.user_list {
-        height: 32px;
-    }
-}
-
-.code-frame pre {
-    @include border-radius(3px);
-    margin: 0;
-    padding: 8px 15px;
-    line-height: 18px;
-    background-color: #f7f7f7;
-    white-space: pre-wrap;
-    font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
-}
-

@@ -1,4 +1,4 @@
-= render 'users/profile_header'
+= render 'shared/header', css_file: 'users'
 = content_for :content do
   #layout.pure-g
     - if user_signed_in?

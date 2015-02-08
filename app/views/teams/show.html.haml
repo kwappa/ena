@@ -1,0 +1,62 @@
+%div.content.pure-u-1.pure-u-md-3-4
+  %div
+    %div.posts
+      %h1
+        %i.fa.fa-cube.fa-lg
+        = @team.name
+      %section.post
+        %header.post-header
+          %h2.content-head
+            %i.fa.fa-info-circle.fa-lg
+            Info
+        %div.post-description
+          %table.pure-table.pure-table-bordered.detail_table
+            %tr
+              %td.column_name Name
+              %td= @team.name
+            %tr
+              %td.column_name Active Period
+              %td= render 'active_period', team: @team
+            %tr
+              %td.column_name Last Update
+              %td
+                %i.fa.fa-clock-o.fa-lg
+                = @team.updated_at
+
+        %header.post-header
+          %h2.content-head
+            %i.fa.fa-group.fa-lg
+            Members
+
+        %div.post-description.team_members
+          - @team.members.each do |role, members|
+            %h3.team_role_header
+              = role.to_s.capitalize.pluralize
+            %ul.team_member_list
+              - members.each do |member|
+                %li
+                  = link_to home_path(member.nick), target: '_blank' do
+                    %i.fa.fa-user.fa-lg
+                  #{member.nick} (#{member.name})
+          - if @team.assignable?(current_user, :member)
+            %h2.content-head
+              %i.fa.fa-user-plus.fa-lg
+              Assign New Member
+
+            %div.search_candidate_user
+              %i.fa.fa-search.fa-lg
+              = form_tag team_search_candidate_member_path(@team), action: :post, class: 'pure-form search_candidate_member' do
+                = text_field_tag :name_or_nick, '', class: 'pure-input-rounded', placeholder: 'Name or Nick (left-hand match)'
+                = button_tag class: 'pure-button' do
+                  %i.fa.fa-search.fa-lg
+                  Search
+
+        %header.post-header
+          %h2.content-head
+            %i.fa.fa-file-o.fa-lg
+            Description
+            - if @team.description_editable?(current_user)
+              = link_to edit_team_path(@team), class: 'edit_link' do
+                %i.fa.fa-edit.fa-lg
+          %div
+            = @team.render(:description).html_safe

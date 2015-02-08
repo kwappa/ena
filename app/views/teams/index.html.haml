@@ -1,0 +1,33 @@
+%div.content.pure-u-1.pure-u-md-3-4
+  %div
+    %div.posts
+      %h1
+        %i.fa.fa-cubes.fa-lg
+        Teams
+        - if permitted_user?(:team_create)
+          = link_to new_team_path, class: 'edit_link' do
+            %i.fa.fa-plus-square.fa-lg
+
+      %section.post
+        %div.post-description
+          %table.team_list.pure-table
+            %thead
+              %tr
+                %th Name
+                %th Description
+                %th History
+            %tbody
+            - @teams.each_with_index do |team, idx|
+              %tr{ class: idx.odd? ? 'pure-table-odd' : '' }
+                %td
+                  = link_to team_path(team) do
+                    %i.fa.fa-cube
+                    = team.name
+                %td
+                  = team_summary(team)
+                %td
+                  = render 'active_period', team: team
+                  %br
+                  %i.fa.fa-clock-o.fa-lg
+                  = team.updated_at
+  = paginate @teams

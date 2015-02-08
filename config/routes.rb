@@ -13,6 +13,12 @@ Rails.application.routes.draw do
 
   resources :user_tags, only: [:index, :show]
 
+  resources :teams do
+    post :search_candidate_member
+    post :assign_member
+    post :withdraw_member
+  end
+
   scope ':nick' do
     get '/', controller: :users, action: :show, as: :home
 

@@ -1,3 +1,18 @@
+@import 'application';
+
+@mixin font-awesome-icon($icon-code) {
+    font-family: FontAwesome;
+
+    &:before {
+        content: $icon-code;
+    }
+}
+
+@mixin textarea-font {
+    font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+    line-height: 1.2em;
+}
+
 div.common-linkbar {
     position: absolute;
     bottom: 0;
@@ -11,15 +26,17 @@ div.common-linkbar {
     }
 }
 
-@mixin font-awesome-icon($icon-code) {
-    font-family: FontAwesome;
+ul.pure-paginator {
+    margin-bottom: 32px;
+}
 
-    &:before {
-        content: $icon-code;
-    }
+a.edit_link {
+    font-weight: normal;
+    font-size: 0.7em;
 }
 
 .flash_message {
+    margin-left: $sidebar_width;
     .pure-button {
         margin: 8px 48px;;
         text-align: left;
@@ -43,4 +60,30 @@ div.common-linkbar {
             color: #af9540;
         }
     }
+}
+
+img.gravatar_icon {
+    @include border-radius(4px);
+}
+
+.code-frame pre {
+    @include border-radius(3px);
+    margin: 0;
+    padding: 8px 15px;
+    line-height: 18px;
+    background-color: #f7f7f7;
+    white-space: pre-wrap;
+    font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
+}
+
+.detail_table {
+    td.column_name {
+        font-weight: bold;
+        text-align: right;
+    }
+}
+
+h2.content-head {
+    border-top: 1px solid #eeeeee;
+    padding-top: 12px;
 }

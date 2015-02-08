@@ -1,0 +1,8 @@
+= render 'shared/header', css_file: 'teams'
+
+= content_for :content do
+  #layout.pure-g
+    = render 'teams/sidebar'
+    = yield
+
+= render file: 'layouts/application'
