@@ -36,7 +36,7 @@
               - members.each do |member|
                 %li
                   = link_to home_path(member.nick), target: '_blank' do
-                    %i.fa.fa-user.fa-lg
+                    = gravatar_image_tag(member, width: 24)
                   #{member.nick} (#{member.name})
           - if @team.assignable?(current_user, :member)
             %h2.content-head
