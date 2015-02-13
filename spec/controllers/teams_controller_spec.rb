@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe TeamsController, type: :controller do
+  render_views
+
   let(:user) { create :user }
 
   describe '#index' do
@@ -45,6 +47,22 @@ RSpec.describe TeamsController, type: :controller do
 
       it 'redirect to #index' do
         expect(create_team).to redirect_to team_path(Team.last)
+      end
+    end
+  end
+
+  describe '#show' do
+    let(:team) { create :team }
+    let(:team_id) { team.id }
+    subject(:show) { get :show, id: team_id }
+
+    context 'when team exists' do
+      context 'when guest user' do
+        specify { expect(show).to be_ok }
+      end
+
+      context 'when login user' do
+        specify { expect(show).to be_ok }
       end
     end
   end

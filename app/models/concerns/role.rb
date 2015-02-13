@@ -100,11 +100,13 @@ module Role
     end
 
     def description_editable?(operator)
+      return false unless operator.present?
       return true if operator.permitted?(:team_edit_description)
       operator.roles(self).any? { |role| Role.permissions(:team_edit_description, role) }
     end
 
     def detail_editable?(operator)
+      return false unless operator.present?
       return true if operator.permitted?(:team_edit_detail)
       operator.roles(self).any? { |role| Role.permissions(:team_edit_detail, role) }
     end
