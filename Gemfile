@@ -15,12 +15,15 @@ gem 'bcrypt',       '~> 3.1.9'
 gem 'username_not_reserved_validator'
 gem 'qiita-markdown'
 gem 'diffy',        '~> 3.0.7'
-gem 'devise',       '~> 3.4.1'
-gem 'omniauth',     '~> 1.2.2'
 gem 'compass-rails', '~> 2.0.0'
 gem 'kaminari'
 gem 'font-awesome-rails'
 gem 'pure-css-rails'
+
+gem 'devise',       '~> 3.4.1'
+gem 'omniauth',     '~> 1.2.2'
+gem 'doorkeeper',   '~> 2.1.1'
+gem 'oauth2',       '~> 1.0.0'
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3'
