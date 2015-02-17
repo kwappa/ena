@@ -51,4 +51,5 @@ group :test do
   gem 'database_rewinder'
   gem 'coveralls', require: false
   gem 'timecop'
+  gem 'capybara'
 end
