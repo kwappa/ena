@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     post :withdraw_member
   end
 
+  namespace :api do
+    get :me
+  end
+
   scope ':nick' do
     get '/', controller: :users, action: :show, as: :home
 
