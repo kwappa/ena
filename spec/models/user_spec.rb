@@ -190,6 +190,39 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'scope .occupation' do
+    subject(:occupation) { described_class.occupation(occupation_name) }
+
+    before do
+      create :user, occupation_id: 0
+      create :user, occupation_id: 1
+      create :user, occupation_id: 2
+      create :user, occupation_id: 2
+    end
+
+    context 'with valid occupation_name' do
+      context 'general' do
+        let(:occupation_name) { :general }
+        specify { expect(occupation.count).to eq 1 }
+      end
+
+      context 'designer' do
+        let(:occupation_name) { :designer }
+        specify { expect(occupation.count).to eq 2 }
+      end
+
+      context 'director' do
+        let(:occupation_name) { :director }
+        specify { expect(occupation.count).to eq 0 }
+      end
+    end
+
+    context 'with invalid occupation_name' do
+      let(:occupation_name) { :invalid_occupation_name }
+      specify { expect { occupation }.to raise_error ArgumentError }
+    end
+  end
+
   describe '.search_by_name_or_nick' do
     let!(:alice) { create(:user, nick: 'alice', name: 'name_of_alice') }
     let!(:bob)   { create(:user, nick: 'nick_of_bob', name: 'bob') }
