@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
     :member_number,
     :screen_name,
     :screen_name_kana,
+    :occupation_id,
   ]
 
   before_action :configure_permitted_parameters, if: :devise_controller?

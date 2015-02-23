@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150217035424) do
+ActiveRecord::Schema.define(version: 20150221021824) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "team_id",      null: false
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 20150217035424) do
     t.integer  "suspend_reason",         default: 0, null: false
     t.date     "suspended_on"
     t.integer  "authority_id",           default: 0, null: false
+    t.integer  "occupation_id",          default: 0, null: false
   end
 
   add_index "users", ["authority_id"], name: "index_users_on_authority_id"
@@ -139,6 +140,7 @@ ActiveRecord::Schema.define(version: 20150217035424) do
   add_index "users", ["member_number"], name: "index_users_on_member_number", unique: true
   add_index "users", ["name"], name: "index_users_on_name", unique: true
   add_index "users", ["nick"], name: "index_users_on_nick", unique: true
+  add_index "users", ["occupation_id"], name: "index_users_on_occupation_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["suspend_reason"], name: "index_users_on_suspend_reason"
 

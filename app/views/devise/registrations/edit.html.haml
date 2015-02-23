@@ -40,6 +40,11 @@
                   = f.email_field :email
               %tr
                 %td.column_name
+                  = f.label :occupation_id
+                %td
+                  = f.select :occupation_id, occupation_select_tag_values
+              %tr
+                %td.column_name
                   = f.label :member_number
                 %td
                   = f.text_field :member_number

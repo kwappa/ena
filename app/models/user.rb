@@ -50,6 +50,8 @@ class User < ActiveRecord::Base
   scope :active,    -> { where(suspend_reason: 0) }
   scope :suspended, -> { where.not(suspend_reason: 0) }
 
+  scope :occupation, ->(occupation_name) { where(occupation_id: Occupation.id(occupation_name)) }
+
   def self.search_by_name_or_nick(name_or_nick)
     like_word = "#{name_or_nick.gsub(/[^a-zA-Z0-9_\-]/, '')}%"
     where(User.arel_table[:name].matches(like_word).or(User.arel_table[:nick].matches(like_word)))
