@@ -16,4 +16,12 @@ module UsersHelper
       end
     end
   end
+
+  def occupation(user)
+    Occupation.name(user.occupation_id).to_s.capitalize
+  end
+
+  def occupation_select_tag_values
+    (0...Occupation::NAMES.size).to_a.map { |idx| [Occupation.name(idx).to_s.capitalize, idx] }
+  end
 end

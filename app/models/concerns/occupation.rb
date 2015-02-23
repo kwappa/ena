@@ -4,7 +4,7 @@ module Occupation
     :engineer,
     :designer,
     :director,
-  ]
+  ].freeze
 
   def self.id(name)
     NAMES.index(name) or raise(ArgumentError.new("occupation name [#{name}] does not found."))
