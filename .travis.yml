@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 2.2.1
+  - 2.2.2
 before_install:
   - sudo /etc/init.d/postgresql stop
   - sudo apt-get update
