@@ -1,4 +1,4 @@
-Haml::Template.options = {
+Haml::Template.options.merge!(
   attr_wrapper: '"',
   ugly: true,
-}
+)
