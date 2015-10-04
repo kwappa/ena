@@ -122,10 +122,10 @@ GEM
     greenmat (3.2.2.1)
     haml (4.0.7)
       tilt
-    haml-rails (0.8.2)
+    haml-rails (0.9.0)
       actionpack (>= 4.0.1)
       activesupport (>= 4.0.1)
-      haml (>= 3.1, < 5.0)
+      haml (>= 4.0.6, < 5.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
     hashie (3.4.2)
@@ -344,7 +344,7 @@ DEPENDENCIES
   erb2haml
   factory_girl_rails
   font-awesome-rails
-  haml-rails (~> 0.8.0)
+  haml-rails (~> 0.9.0)
   jquery-rails (~> 4.0.2)
   kaminari
   oauth2 (~> 1.0.0)

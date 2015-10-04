@@ -10,7 +10,7 @@ gem 'jquery-rails', '~> 4.0.2'
 gem 'sdoc'
 gem 'unicorn',      '~> 4.8.3'
 
-gem 'haml-rails',   '~> 0.8.0'
+gem 'haml-rails',   '~> 0.9.0'
 gem 'bcrypt',       '~> 3.1.9'
 gem 'username_not_reserved_validator'
 gem 'qiita-markdown'
