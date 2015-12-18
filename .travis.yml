@@ -4,7 +4,7 @@ rvm:
 before_install:
   - sudo /etc/init.d/postgresql stop
   - sudo apt-get update
-  - sudo apt-get purge postgresql-9.1 postgresql-9.2 postgresql-9.3
+  - sudo apt-get purge postgresql-9.2 postgresql-9.3
   - sudo apt-get install libicu-dev cmake language-pack-es postgresql-9.4
   - sudo chmod 777 /etc/postgresql/9.4/main/pg_hba.conf
   - sudo echo "local   all         postgres                          trust" >  /etc/postgresql/9.4/main/pg_hba.conf
