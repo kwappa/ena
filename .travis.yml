@@ -1,5 +1,6 @@
 language: ruby
 rvm:
+  - 2.3.0
   - 2.2.3
 before_install:
   - sudo /etc/init.d/postgresql stop
