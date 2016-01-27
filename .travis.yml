@@ -1,6 +1,7 @@
 language: ruby
 rvm:
   - 2.3.0
+>>>>>>> :gem: bump ruby version and bundle update
 before_install:
   - sudo /etc/init.d/postgresql stop
   - sudo apt-get update
