@@ -113,7 +113,7 @@ GEM
     font-awesome-rails (4.5.0.1)
       railties (>= 3.2, < 5.1)
     gemoji (2.1.0)
-    github-linguist (4.7.4)
+    github-linguist (4.7.5)
       charlock_holmes (~> 0.7.3)
       escape_utils (~> 1.1.0)
       mime-types (>= 1.19)
@@ -316,11 +316,11 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
-    unicorn (5.0.1)
+    unicorn (4.8.3)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    username_not_reserved_validator (1.0.4)
+    username_not_reserved_validator (1.0.5)
       activemodel
     warden (1.2.6)
       rack (>= 1.0)
