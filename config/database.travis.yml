@@ -4,6 +4,7 @@ sqlite: &sqlite
 
 postgresql: &postgresql
   adapter: postgresql
+  port: 5433
   username: postgres
   password:
   database: ena_<%= Rails.env %>
