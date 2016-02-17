@@ -9,10 +9,6 @@ env:
   - DB=postgresql
 script:
   - postgres --version
-  - env COLUMNS=132 dpkg -l | grep postgres
-  - dpkg-query -L postgresql-9.4
-  - dpkg-query -L postgresql-client-9.4
-  - dpkg-query -L postgresql-contrib-9.4
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
   - bundle exec rake
