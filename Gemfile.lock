@@ -307,7 +307,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    username_not_reserved_validator (1.0.5)
+    username_not_reserved_validator (1.2.0)
       activemodel
     warden (1.2.6)
       rack (>= 1.0)
