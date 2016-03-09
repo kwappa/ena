@@ -258,7 +258,7 @@ GEM
     rspec-support (3.4.1)
     ruby_parser (3.8.1)
       sexp_processor (~> 4.1)
-    rugged (0.24.0b14)
+    rugged (0.24.0)
     sanitize (4.0.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.4.4)
