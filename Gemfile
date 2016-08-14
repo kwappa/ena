@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 
-gem 'rails',        '4.2.5.1'
+gem 'rails',        '4.2.7.1'
 gem 'sprockets',    '~> 2.11.0'
 gem 'sass-rails',   '~> 5.0.1'
 gem 'uglifier',     '~> 2.7.0'
