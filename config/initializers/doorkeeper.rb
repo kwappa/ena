@@ -110,4 +110,4 @@ Doorkeeper.configure do
   # realm "Doorkeeper"
 end
 
-Doorkeeper.configuration.token_grant_types << "password"
+# Doorkeeper.configuration.token_grant_types << "password"

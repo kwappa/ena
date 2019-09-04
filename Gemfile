@@ -1,32 +1,32 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+# ruby '2.3.1'
 
-gem 'rails',        '4.2.7.1'
-gem 'sprockets',    '~> 2.11.0'
-gem 'sass-rails',   '~> 5.0.1'
-gem 'uglifier',     '~> 2.7.0'
-gem 'coffee-rails', '~> 4.1.0'
-gem 'jquery-rails', '~> 4.1.0'
+gem 'rails'
+gem 'sprockets'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
+gem 'jquery-rails'
 gem 'sdoc'
-gem 'unicorn',      '~> 5.0.0'
+gem 'unicorn'
 
-gem 'haml-rails',   '~> 0.9.0'
-gem 'bcrypt',       '~> 3.1.9'
+gem 'haml-rails'
+gem 'bcrypt'
 gem 'username_not_reserved_validator'
 gem 'qiita-markdown'
-gem 'diffy',        '~> 3.1.0'
-gem 'compass-rails', '~> 2.0.4'
+gem 'diffy'
+gem 'compass-rails'
 gem 'kaminari'
 gem 'font-awesome-rails'
 gem 'pure-css-rails'
 
-gem 'devise',       '~> 3.5.0'
-gem 'omniauth',     '~> 1.3.0'
-gem 'doorkeeper',   '~> 2.1.1'
-gem 'oauth2',       '~> 1.0.0'
+gem 'devise'
+gem 'omniauth'
+gem 'doorkeeper'
+gem 'oauth2'
 
 group :production do
-  gem 'rails_12factor', '~> 0.0.3'
+  gem 'rails_12factor'
 end
 
 group :development do
@@ -39,12 +39,12 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'pry-rails'
   gem 'pry-byebug'
-  gem 'factory_girl_rails'
-  gem 'sqlite3', '~> 1.3.10'
+  gem 'factory_bot_rails'
+  gem 'sqlite3'
 end
 
 group :production, :test do
-  gem 'pg', '~> 0.18.0'
+  gem 'pg'
 end
 
 group :test do

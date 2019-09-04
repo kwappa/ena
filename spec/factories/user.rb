@@ -1,9 +1,9 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     name
     nick
     email
-    password 'password'
+    password { 'password' }
   end
 
   sequence :email do |n|
