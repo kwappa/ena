@@ -200,7 +200,7 @@ GEM
       mem
       pygments.rb
       sanitize
-    rack (1.6.4)
+    rack (1.6.12)
     rack-mini-profiler (0.10.1)
       rack (>= 1.2.0)
     rack-test (0.6.3)
