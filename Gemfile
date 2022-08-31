@@ -21,7 +21,7 @@ gem 'font-awesome-rails'
 gem 'pure-css-rails'
 
 gem 'devise',       '~> 3.5.0'
-gem 'omniauth',     '~> 1.3.0'
+gem 'omniauth',     '~> 1.9.2'
 gem 'doorkeeper',   '~> 2.1.1'
 gem 'oauth2',       '~> 1.0.0'
 
